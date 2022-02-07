@@ -1,0 +1,132 @@
+============================================
+Macro args as operands
+============================================
+ move \1,d1
+ move \@,d1
+ move \@@,d1
+ move \@!,d1
+ move \@?,d1
+ move \@@,d1
+ move \#,d1
+ move \?1,d1
+ move \.,d1
+ move \+,d1
+ move \-,d1
+ move \foo,d1
+ move \$foo,d1
+---
+(source_file
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list (macro_arg) (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list (macro_arg) (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list (macro_arg) (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list (macro_arg) (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list (macro_arg) (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list (macro_arg) (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list (macro_arg) (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list (macro_arg) (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list (macro_arg) (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list (macro_arg) (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list (macro_arg) (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list (macro_arg) (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list (macro_arg) (data_register)))
+)
+
+============================================
+Interpolated symbols in operands
+============================================
+ move d\1,d1
+ move \1+2,d1
+ move \11,d1
+ move f\@.oo,d1
+---
+(source_file
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (interpolated
+        (symbol)
+        (macro_arg))
+      (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (binary_expression
+        left: (macro_arg)
+        operator: (operator)
+        right: (decimal_literal))
+      (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (interpolated
+        (macro_arg)
+        (symbol))
+      (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (interpolated
+        (symbol)
+        (macro_arg)
+        (symbol))
+      (data_register)))
+)
+
+============================================
+Macro symbols in labels
+============================================
+\@:
+l\@:
+---
+(source_file
+  (label (macro_arg))
+  (label
+    (interpolated
+      (symbol)
+      (macro_arg))))
+
+============================================
+Macro symbols as size
+============================================
+ move.\1 d0,d1
+ move 4.\1,d1
+---
+(source_file
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    size: (macro_arg)
+    operands: (operand_list (data_register) (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (absolute_value
+        value: (decimal_literal)
+        size: (macro_arg))
+      (data_register)))
+)

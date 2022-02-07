@@ -1,0 +1,219 @@
+============================================
+Labels
+============================================
+label:
+label: rts
+label:rts
+.label:
+.label$:
+label
+label rts
+	label:
+	label: rts
+label::
+  label::
+---
+(source_file
+  (label name: (symbol))
+  (label name: (symbol))
+  (instruction mnemonic: (instruction_mnemonic))
+  (label name: (symbol))
+  (instruction mnemonic: (instruction_mnemonic))
+  (label name: (symbol))
+  (label name: (symbol))
+  (label name: (symbol))
+  (label name: (symbol))
+  (instruction mnemonic: (instruction_mnemonic))
+  (label name: (symbol))
+  (label name: (symbol))
+  (instruction mnemonic: (instruction_mnemonic))
+  (external_label name: (symbol))
+  (external_label name: (symbol))
+)
+
+============================================
+Comments
+============================================
+; Comment
+label ; Comment
+ move d1,d2 ; Comment
+* Comment
+label * Comment
+ move d1,d2 * Comment
+ move d1, d2 foo bar baz
+---
+(source_file
+  (comment)
+  (label (symbol))
+  (comment)
+  (instruction
+    (instruction_mnemonic)
+    (operand_list
+      (data_register)
+      (data_register)))
+  (comment)
+  (comment)
+  (label (symbol))
+  (comment)
+  (instruction
+    (instruction_mnemonic)
+    (operand_list
+      (data_register)
+      (data_register)))
+  (comment)
+  (instruction
+    (instruction_mnemonic)
+    (operand_list
+      (data_register)
+      (data_register)))
+  (comment)
+)
+
+============================================
+Instructions
+============================================
+ rts
+ lsl d0
+ move d0,d1
+ move.w d0,d1
+ MoVe.W D0,d1
+ move d0 , d1
+ move d0,d1,
+---
+(source_file
+  (instruction mnemonic: (instruction_mnemonic))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (data_register)
+      (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    size: (size)
+    operands: (operand_list
+      (data_register)
+      (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    size: (size)
+    operands: (operand_list
+      (data_register)
+      (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (data_register)
+      (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (data_register)
+      (data_register)))
+)
+
+============================================
+Directives
+============================================
+ even
+ echo "example"
+---
+(source_file
+  (directive mnemonic: (directive_mnemonic))
+  (directive
+    mnemonic: (directive_mnemonic)
+    operands: (operand_list
+      (string_literal)))
+)
+
+============================================
+Sections
+============================================
+ section "example"
+ section example
+ section example,code
+ section example,code_f
+ section example,code,fast
+ code_f
+ section example,code,1
+---
+(source_file
+  (section (directive_mnemonic) name: (string_literal))
+  (section (directive_mnemonic) name: (symbol))
+  (section (directive_mnemonic) name: (symbol) type: (section_type))
+  (section (directive_mnemonic) name: (symbol) type: (section_type))
+  (section (directive_mnemonic) name: (symbol) type: (section_type) memory_type: (memory_type))
+  (section type: (section_type))
+  (section (directive_mnemonic) name: (symbol) type: (section_type) memory_type: (decimal_literal))
+)
+
+============================================
+Rem
+============================================
+ rem
+ foo
+ foo
+ foo
+ erem
+---
+(source_file
+  (rem
+    (control_mnemonic)
+    (comment)
+    (control_mnemonic))
+)
+
+============================================
+End
+============================================
+ end
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Etiam dictum sollicitudin eliteu ullamcorper lacus vehicula non.
+Pellentesque id tristique ex.
+---
+(source_file
+  (end (control_mnemonic)))
+
+============================================
+Macro call
+============================================
+  MyMacro
+  MyMacro d0,d1
+foo:  MyMacro d0,d1
+bar:  MyMacro
+baz:  MyMacro d0,d1 ; example
+woo:  MyMacro ; example
+---
+(source_file
+  (macro_call (symbol))
+
+  (macro_call
+    (symbol)
+    (operand_list
+      (data_register)
+      (data_register)))
+
+  (label
+    (symbol))
+  (macro_call
+    (symbol)
+    (operand_list
+      (data_register)
+      (data_register)))
+  (label
+    (symbol))
+  (macro_call
+    (symbol))
+  (label
+    (symbol))
+  (macro_call
+    (symbol))
+  (comment)
+  (label
+    (symbol))
+  (macro_call
+    (symbol))
+  (comment))

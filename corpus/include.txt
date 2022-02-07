@@ -1,0 +1,36 @@
+============================================
+Include
+============================================
+ include foo/bar.s
+ include "foo/bar baz.s"
+---
+(source_file
+  (include (directive_mnemonic) path: (path))
+  (include (directive_mnemonic) path: (path (string_literal)))
+)
+
+============================================
+Include directory
+============================================
+ incdir foo/bar
+ incdir "foo/bar baz"
+---
+(source_file
+  (include_dir (directive_mnemonic) path: (path))
+  (include_dir (directive_mnemonic) path: (path (string_literal)))
+)
+
+============================================
+Include binary
+============================================
+ incbin foo/bar.bin
+ incbin "foo/bar baz.bin"
+ incbin foo/bar.bin,100
+ incbin foo/bar.bin,100,200
+---
+(source_file
+  (include_bin (directive_mnemonic) path: (path))
+  (include_bin (directive_mnemonic) path: (path (string_literal)))
+  (include_bin (directive_mnemonic) path: (path) offset: (decimal_literal))
+  (include_bin (directive_mnemonic) path: (path) offset: (decimal_literal) length: (decimal_literal))
+)

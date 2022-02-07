@@ -1,0 +1,47 @@
+
+============================================
+Repeat
+============================================
+  rept 6
+  move d0,d1
+  move d1,d2
+  endr
+
+  REPT foo comment here
+  move d0,d1
+  move d1,d2
+  ENDR; comment
+---
+(source_file
+  (repeat
+    (control_mnemonic)
+    (decimal_literal)
+    (element_list
+      (instruction
+        (instruction_mnemonic)
+        (operand_list
+          (data_register)
+          (data_register)))
+      (instruction
+        (instruction_mnemonic)
+        (operand_list
+          (data_register)
+          (data_register))))
+    (control_mnemonic))
+  (repeat
+    (control_mnemonic)
+    (symbol)
+    (comment)
+    (element_list
+      (instruction
+        (instruction_mnemonic)
+        (operand_list
+          (data_register)
+          (data_register)))
+      (instruction
+        (instruction_mnemonic)
+        (operand_list
+          (data_register)
+          (data_register))))
+    (control_mnemonic))
+  (comment))

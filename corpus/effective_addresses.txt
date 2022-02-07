@@ -1,0 +1,277 @@
+============================================
+Registers
+============================================
+	move d0,d0
+	move a0,d0
+	move fp0,d0
+	move pc,d0
+---
+(source_file
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list (data_register) (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list (address_register) (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list (float_register) (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list (named_register) (data_register)))
+)
+
+============================================
+Immediate value
+============================================
+	move #1,d0
+	move #foo,d0
+	move #(1+1),d0
+---
+(source_file
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (immediate_value value: (decimal_literal))
+      (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (immediate_value value: (symbol))
+      (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (immediate_value
+        value: (parenthesized_expression
+          (binary_expression
+            left: (decimal_literal)
+            operator: (operator)
+            right: (decimal_literal))))
+      (data_register)))
+)
+
+============================================
+Absolute value
+============================================
+	move 4.w,d0
+	move foo.w,d0
+	move (foo).w,d0
+---
+(source_file
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (absolute_value value: (decimal_literal) size: (size))
+      (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (absolute_value value: (symbol) size: (size))
+      (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (absolute_value
+        value: (symbol)
+        size: (size))
+      (data_register)))
+)
+
+============================================
+Indirect
+============================================
+	move (a0),d0
+	move (pc),d0
+	move (foo),d0
+---
+(source_file
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (indirect_address register: (address_register))
+      (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (indirect_address register: (named_register))
+      (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (indirect_address register: (symbol))
+      (data_register)))
+)
+
+============================================
+Post inc
+============================================
+	move (a0)+,d0
+	move (sp)+,d0
+	move (foo)+,d0
+---
+(source_file
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (indirect_address_postinc register: (address_register))
+      (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (indirect_address_postinc register: (named_register))
+      (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (indirect_address_postinc register: (symbol))
+      (data_register)))
+)
+
+============================================
+Pre dec
+============================================
+	move -(a0),d0
+	move -(sp),d0
+	move -(foo),d0
+---
+(source_file
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (indirect_address_predec register: (address_register))
+      (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (indirect_address_predec register: (named_register))
+      (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (indirect_address_predec register: (symbol))
+      (data_register)))
+)
+
+============================================
+Address offset
+============================================
+	move 123(a0),d0
+	move (123,a0),d0
+	move foo(a0),d0
+	move foo+bar(a0),d0
+---
+(source_file
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (offset_address offset: (decimal_literal) register: (address_register))
+      (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (offset_address offset: (decimal_literal) register: (address_register))
+      (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (offset_address offset: (symbol) register: (address_register))
+      (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (offset_address
+        offset: (binary_expression
+          left: (symbol)
+          operator: (operator)
+          right: (symbol))
+        register: (address_register))
+      (data_register)))
+)
+
+============================================
+Address offset idx
+============================================
+	move (a0,d0),d0
+	move (a0,a1),d0
+	move (a0,d0.w),d0
+	move 123(a0,d0.w),d0
+---
+(source_file
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (offset_address_idx
+        register: (address_register)
+        idx: (idx register: (data_register)))
+      (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (offset_address_idx
+        register: (address_register)
+        idx: (idx register: (address_register)))
+      (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (offset_address_idx
+        register: (address_register)
+        idx: (idx register: (data_register) size: (size)))
+       (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (offset_address_idx
+        offset: (decimal_literal)
+        register: (address_register)
+        idx: (idx
+          register: (data_register)
+          size: (size)))
+      (data_register)))
+)
+
+============================================
+Register list
+============================================
+	movem d0-d7/a0,-(sp)
+	movem d0-d7,-(sp)
+	movem d0/d7,-(sp)
+	movem d0-d7/a0-a6,-(sp)
+	movem d0-7,-(sp)
+---
+(source_file
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (register_list
+          (register_range from: (data_register) to: (data_register))
+          (address_register))
+      (indirect_address_predec register: (named_register))))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (register_list
+          (register_range from: (data_register) to: (data_register)))
+      (indirect_address_predec register: (named_register))))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (register_list
+          (data_register)
+          (data_register))
+      (indirect_address_predec register: (named_register))))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (register_list
+          (register_range from: (data_register) to: (data_register))
+          (register_range from: (address_register) to: (address_register)))
+      (indirect_address_predec register: (named_register))))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (register_list
+          (register_range from: (data_register) to: (register_number)))
+      (indirect_address_predec register: (named_register))))
+)

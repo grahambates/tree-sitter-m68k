@@ -1,0 +1,148 @@
+============================================
+Numeric Literals
+============================================
+	move 1,d0
+	move $1,d0
+	move %1,d0
+	move @1,d0
+---
+(source_file
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list (decimal_literal) (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list (hexadecimal_literal) (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list (binary_literal) (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list (octal_literal) (data_register)))
+)
+
+============================================
+Symbols
+============================================
+	move foo,d0
+	move .foo,d0
+---
+(source_file
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list (symbol) (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list (symbol) (data_register)))
+)
+
+============================================
+String Literals
+============================================
+	move "foo bar",d0
+	move "foo ""bar"" baz",d0
+	move "foo \"bar\" baz",d0
+	move 'foo bar',d0
+	move 'foo ''bar'' baz',d0
+	move 'foo \'bar\' baz',d0
+---
+(source_file
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list (string_literal) (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list (string_literal) (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list (string_literal) (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list (string_literal) (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list (string_literal) (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list (string_literal) (data_register)))
+)
+
+============================================
+Unary Expressions
+============================================
+	move -1,d0
+---
+(source_file
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (unary_expression
+        operator: (operator)
+        operand: (decimal_literal))
+      (data_register))))
+
+============================================
+Binary Expressions
+============================================
+	move 1+1,d0
+	move 1+2*2,d0
+	move (1+2)*2,d0
+---
+(source_file
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (binary_expression
+        left: (decimal_literal)
+        operator: (operator)
+        right: (decimal_literal))
+      (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (binary_expression
+        left: (decimal_literal)
+        operator: (operator)
+        right: (binary_expression
+          left: (decimal_literal)
+          operator: (operator)
+          right: (decimal_literal)))
+      (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (binary_expression
+        left: (parenthesized_expression
+          (binary_expression
+            left: (decimal_literal)
+            operator: (operator)
+            right: (decimal_literal)))
+        operator: (operator)
+        right: (decimal_literal))
+      (data_register)))
+)
+
+============================================
+Built-in symbols
+============================================
+	move reptn,d0
+	move carg,d0
+	move narg,d0
+---
+(source_file
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (reptn)
+      (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (carg)
+      (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (narg)
+      (data_register)))
+)

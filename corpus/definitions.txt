@@ -1,0 +1,210 @@
+============================================
+Macro definitions
+============================================
+  macro foo
+  move d1,d2
+  rts
+  endm
+
+foo MACRO;foo
+  move d1,d2
+  move d1,d2
+  rts
+  ENDM foo
+---
+(source_file
+  (macro_definition
+    (control_mnemonic)
+    name: (symbol)
+    body: (element_list
+      (instruction
+        mnemonic: (instruction_mnemonic)
+        operands: (operand_list
+          (data_register)
+          (data_register)))
+      (instruction
+        mnemonic: (instruction_mnemonic)))
+    (control_mnemonic))
+  (macro_definition
+    name: (symbol)
+    (control_mnemonic)
+    (comment)
+    body: (element_list
+      (instruction
+        mnemonic: (instruction_mnemonic)
+        operands: (operand_list
+          (data_register)
+          (data_register)))
+      (instruction
+        mnemonic: (instruction_mnemonic)
+        operands: (operand_list
+          (data_register)
+          (data_register)))
+      (instruction
+        mnemonic: (instruction_mnemonic)))
+    (control_mnemonic)
+    (comment))
+)
+
+============================================
+Symbol definitions
+============================================
+foo=1
+foo =1
+foo = 1
+foo EQU 1
+foo EQU.S 1
+foo equ 1
+foo: EQU 1
+foo:EQU 1
+foo FEQU 1.1
+foo FEQU.s 1.1
+---
+(source_file
+  (symbol_definition name: (symbol) value: (decimal_literal))
+  (symbol_definition name: (symbol) value: (decimal_literal))
+  (symbol_definition name: (symbol) value: (decimal_literal))
+  (symbol_definition name: (symbol) mnemonic: (directive_mnemonic) value: (decimal_literal))
+  (symbol_definition name: (symbol) mnemonic: (directive_mnemonic) size: (size) value: (decimal_literal))
+  (symbol_definition name: (symbol) mnemonic: (directive_mnemonic) value: (decimal_literal))
+  (symbol_definition name: (symbol) mnemonic: (directive_mnemonic) value: (decimal_literal))
+  (symbol_definition name: (symbol) mnemonic: (directive_mnemonic) value: (decimal_literal))
+  (symbol_definition name: (symbol) mnemonic: (directive_mnemonic) value: (decimal_literal))
+  (symbol_definition name: (symbol) mnemonic: (directive_mnemonic) size: (size) value: (decimal_literal))
+)
+
+============================================
+Symbol assignment
+============================================
+foo set 1
+foo SET 1
+foo:SET 1
+---
+(source_file
+  (symbol_assignment name: (symbol) (directive_mnemonic) value: (decimal_literal))
+  (symbol_assignment name: (symbol) (directive_mnemonic) value: (decimal_literal))
+  (symbol_assignment name: (symbol) (directive_mnemonic) value: (decimal_literal))
+)
+
+============================================
+Register definition
+============================================
+foo equr d0
+foo EQUR d0
+foo equr a0
+foo equr sp
+foo fequr fp0
+---
+(source_file
+  (register_definition name: (symbol) mnemonic: (directive_mnemonic) value: (data_register))
+  (register_definition name: (symbol) mnemonic: (directive_mnemonic) value: (data_register))
+  (register_definition name: (symbol) mnemonic: (directive_mnemonic) value: (address_register))
+  (register_definition name: (symbol) mnemonic: (directive_mnemonic) value: (named_register))
+  (register_definition name: (symbol) mnemonic: (directive_mnemonic) value: (float_register))
+)
+
+============================================
+Register list definition
+============================================
+foo equrl d0-d6
+foo EQURL d0-d6
+foo equrl d0-d6/a1
+foo reg d0-d6
+foo fequrl fp0-fp6
+foo freg fp0-fp6
+---
+(source_file
+  (register_list_definition
+    name: (symbol)
+    mnemonic: (directive_mnemonic)
+    value:
+      (register_list
+          (register_range from: (data_register) to: (data_register))))
+  (register_list_definition
+    name: (symbol)
+    mnemonic: (directive_mnemonic)
+    value:
+      (register_list
+          (register_range from: (data_register) to: (data_register))))
+  (register_list_definition
+    name: (symbol)
+    mnemonic: (directive_mnemonic)
+    value:
+      (register_list
+          (register_range from: (data_register) to: (data_register))
+          (address_register)))
+  (register_list_definition
+    name: (symbol)
+    mnemonic: (directive_mnemonic)
+    value:
+      (register_list
+          (register_range from: (data_register) to: (data_register))))
+  (register_list_definition
+    name: (symbol)
+    mnemonic: (directive_mnemonic)
+    value:
+      (register_list
+          (register_range from: (float_register) to: (float_register))))
+  (register_list_definition
+    name: (symbol)
+    mnemonic: (directive_mnemonic)
+    value:
+      (register_list
+          (register_range from: (float_register) to: (float_register))))
+)
+
+============================================
+Offset definitions
+============================================
+foo rs 10
+foo rs.w 10
+---
+(source_file
+  (offset_definition
+    name: (symbol)
+    (directive_mnemonic)
+    length: (decimal_literal))
+  (offset_definition
+    name: (symbol)
+    (directive_mnemonic)
+    size: (size)
+    length: (decimal_literal))
+)
+
+============================================
+External symbols
+============================================
+ xdef foo
+ public foo
+ weak foo
+ xdef foo,bar
+ xref foo
+ nref foo
+---
+(source_file
+  (external_definition
+    mnemonic: (directive_mnemonic)
+    symbols: (symbol_list
+      (symbol)))
+  (external_definition
+    mnemonic: (directive_mnemonic)
+    symbols: (symbol_list
+      (symbol)))
+  (external_definition
+    mnemonic: (directive_mnemonic)
+    symbols: (symbol_list
+      (symbol)))
+  (external_definition
+    mnemonic: (directive_mnemonic)
+    symbols: (symbol_list
+      (symbol)
+      (symbol)))
+  (external_reference
+    mnemonic: (directive_mnemonic)
+    symbols: (symbol_list
+      (symbol)))
+  (external_reference
+    mnemonic: (directive_mnemonic)
+    symbols: (symbol_list
+      (symbol)))
+)
