@@ -2,45 +2,62 @@
   "name": "m68k",
   "rules": {
     "source_file": {
-      "type": "PREC_LEFT",
-      "value": 0,
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "REPEAT",
-            "content": {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "_element"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "_nl"
-                }
-              ]
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_nl"
+            },
+            {
+              "type": "BLANK"
             }
-          },
-          {
-            "type": "SYMBOL",
-            "name": "_element"
-          },
-          {
-            "type": "CHOICE",
+          ]
+        },
+        {
+          "type": "PREC_LEFT",
+          "value": 0,
+          "content": {
+            "type": "SEQ",
             "members": [
               {
-                "type": "SYMBOL",
-                "name": "_nl"
+                "type": "REPEAT",
+                "content": {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "_element"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "_nl"
+                    }
+                  ]
+                }
               },
               {
-                "type": "BLANK"
+                "type": "SYMBOL",
+                "name": "_element"
+              },
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "_nl"
+                  },
+                  {
+                    "type": "BLANK"
+                  }
+                ]
               }
             ]
           }
-        ]
-      }
+        }
+      ]
     },
     "element_list": {
       "type": "SEQ",
@@ -353,7 +370,7 @@
         },
         {
           "type": "PATTERN",
-          "value": ".+"
+          "value": ".*"
         }
       ]
     },
@@ -6485,14 +6502,11 @@
                 "type": "CHOICE",
                 "members": [
                   {
-                    "type": "IMMEDIATE_TOKEN",
+                    "type": "PREC",
+                    "value": 1,
                     "content": {
-                      "type": "PREC",
-                      "value": 1,
-                      "content": {
-                        "type": "PATTERN",
-                        "value": "[^'\\n\\\\]+"
-                      }
+                      "type": "PATTERN",
+                      "value": "[^'\\n\\\\]+"
                     }
                   },
                   {
@@ -6502,6 +6516,10 @@
                   {
                     "type": "STRING",
                     "value": "''"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "macro_arg"
                   }
                 ]
               }
@@ -6525,14 +6543,11 @@
                 "type": "CHOICE",
                 "members": [
                   {
-                    "type": "IMMEDIATE_TOKEN",
+                    "type": "PREC",
+                    "value": 1,
                     "content": {
-                      "type": "PREC",
-                      "value": 1,
-                      "content": {
-                        "type": "PATTERN",
-                        "value": "[^\"\\n\\\\]+"
-                      }
+                      "type": "PATTERN",
+                      "value": "[^\"\\n\\\\]+"
                     }
                   },
                   {
@@ -6542,6 +6557,10 @@
                   {
                     "type": "STRING",
                     "value": "\"\""
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "macro_arg"
                   }
                 ]
               }
@@ -6719,6 +6738,24 @@
                 {
                   "type": "SYMBOL",
                   "name": "symbol"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "macro_arg"
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "STRING",
+                    "value": "."
+                  },
+                  "named": true,
+                  "value": "symbol"
                 },
                 {
                   "type": "SYMBOL",

@@ -2099,7 +2099,17 @@
   {
     "type": "string_literal",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "macro_arg",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "symbol_assignment",

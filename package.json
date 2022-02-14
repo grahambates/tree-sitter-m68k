@@ -13,5 +13,19 @@
   },
   "devDependencies": {
     "tree-sitter-cli": "^0.20.4"
-  }
+  },
+  "tree-sitter": [
+    {
+      "scope": "source.m68k",
+      "file-types": [
+        "asm",
+        "ASM",
+        "s",
+        "S",
+        "i",
+        "I"
+      ],
+      "highlights": "queries/highlights.scm"
+    }
+  ]
 }

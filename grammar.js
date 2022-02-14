@@ -645,7 +645,8 @@ module.exports = grammar({
   ],
 
   rules: {
-    source_file: ($) => prec.left(listSep($._element, $._nl)),
+    source_file: ($) =>
+      seq(optional($._nl), prec.left(listSep($._element, $._nl))),
 
     element_list: ($) => listSep($._element, $._nl),
 
@@ -707,7 +708,7 @@ module.exports = grammar({
       ),
 
     label: ($) => field("name", $._symbol),
-    comment: ($) => seq(choice(";", "*"), /.+/),
+    comment: ($) => seq(choice(";", "*"), /.*/),
 
     _start_line: ($) =>
       prec.right(
@@ -1353,13 +1354,13 @@ module.exports = grammar({
         // Single quoted
         seq(
           "'",
-          repeat(choice(token.immediate(prec(1, /[^'\n\\]+/)), "\\'", "''")),
+          repeat(choice(prec(1, /[^'\n\\]+/), "\\'", "''", $.macro_arg)),
           "'"
         ),
         // Double quoted
         seq(
           '"',
-          repeat(choice(token.immediate(prec(1, /[^"\n\\]+/)), '\\"', '""')),
+          repeat(choice(prec(1, /[^"\n\\]+/), '\\"', '""', $.macro_arg)),
           '"'
         )
       ),
@@ -1394,7 +1395,11 @@ module.exports = grammar({
 
     interpolated: ($) =>
       seq(
-        choice(seq($.macro_arg, $.symbol), seq($.symbol, $.macro_arg)),
+        choice(
+          seq($.macro_arg, $.symbol),
+          seq($.symbol, $.macro_arg),
+          seq(alias(".", $.symbol), $.macro_arg)
+        ),
         repeat(choice($.macro_arg, $.symbol))
       ),
 
