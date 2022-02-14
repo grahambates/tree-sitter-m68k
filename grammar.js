@@ -1,5 +1,4 @@
 // TODO:
-// macro calls
 // OPT, FOPT?
 // If a macro parameter is to include spaces or commas then the parameter should be enclosed in between < and > symbols; in this case a > symbol may be included within the parameter by specifying >>.
 
@@ -612,7 +611,19 @@ const registerNames = ["sp", "pc", "sr", "ccr", "usp", "vbr"];
 module.exports = grammar({
   name: "m68k",
 
-  extras: ($) => [],
+  supertypes: ($) => [
+    $._mnemonic,
+    $._operand,
+    $._size,
+    $._symbol,
+    $._definition,
+    $._effective_address,
+    $._register,
+    $._numeric_literal,
+    $._builtin,
+  ],
+
+  extras: ($) => [], // handle whitespace manually
 
   conflicts: ($) => [
     [

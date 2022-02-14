@@ -6805,6 +6805,16 @@
   "precedences": [],
   "externals": [],
   "inline": [],
-  "supertypes": []
+  "supertypes": [
+    "_mnemonic",
+    "_operand",
+    "_size",
+    "_symbol",
+    "_definition",
+    "_effective_address",
+    "_register",
+    "_numeric_literal",
+    "_builtin"
+  ]
 }
 
