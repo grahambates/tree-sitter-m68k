@@ -1,6 +1,9 @@
 // TODO:
-// OPT, FOPT?
-// If a macro parameter is to include spaces or commas then the parameter should be enclosed in between < and > symbols; in this case a > symbol may be included within the parameter by specifying >>.
+// OPT directive
+// < > brackets on macro parameters
+// C Style macros
+// Square brackets
+// Extern keyword
 
 const binaryOperators = [
   "||",

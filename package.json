@@ -1,12 +1,22 @@
 {
   "name": "tree-sitter-m68k",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.1.0",
+  "description": "Motorola 68000 family assembly grammar for tree-sitter",
   "main": "bindings/node",
+  "keywords": [
+    "parser",
+    "lexer",
+    "68000",
+    "m68k",
+    "assembly",
+    "asm",
+    "amiga"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tree-sitter generate",
+    "test": "tree-sitter test"
   },
-  "author": "gigabates <hello@grahambates.com>",
+  "author": "Graham Bates",
   "license": "MIT",
   "dependencies": {
     "nan": "^2.15.0"
@@ -14,6 +24,7 @@
   "devDependencies": {
     "tree-sitter-cli": "^0.20.4"
   },
+  "repository": "https://github.com/grahambates/tree-sitter-m68k",
   "tree-sitter": [
     {
       "scope": "source.m68k",
