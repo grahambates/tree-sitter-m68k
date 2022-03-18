@@ -614,6 +614,8 @@ const registerNames = ["sp", "pc", "sr", "ccr", "usp", "vbr"];
 module.exports = grammar({
   name: "m68k",
 
+  word: ($) => $.symbol,
+
   supertypes: ($) => [
     $._mnemonic,
     $._operand,

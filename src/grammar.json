@@ -1,5 +1,6 @@
 {
   "name": "m68k",
+  "word": "symbol",
   "rules": {
     "source_file": {
       "type": "SEQ",
