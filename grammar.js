@@ -727,7 +727,6 @@ module.exports = grammar({
             "::",
             optional($._ws)
           ), //  double colon makes label externally visible
-          // seq($.label, ":", optional($._ws)), // colon required with leading whitespace
           seq(optional($._ws), $.label, ":", optional($._ws)), // colon required with leading whitespace
           seq($.label, optional(":"), optional($._ws)),
           $._ws // require at least whitespace before statement
@@ -996,12 +995,10 @@ module.exports = grammar({
     // Macro call:
 
     macro_call: ($) =>
-      // prec.right(
       seq(
         field("name", $._symbol),
         optional(seq(".", field("qualifier", $._size))),
         optional(seq($._ws, field("operands", $.operand_list)))
-        // )
       ),
 
     // Block / multiline:
