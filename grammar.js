@@ -667,6 +667,10 @@ module.exports = grammar({
         seq(optional($._ws), $.comment)
       ),
 
+    comment: ($) => choice($._comment_star, $._comment_semi),
+    _comment_semi: ($) => /;.*/,
+    _comment_star: ($) => /\*.*/,
+
     _definition: ($) =>
       choice(
         $.macro_definition,
@@ -713,7 +717,6 @@ module.exports = grammar({
       ),
 
     label: ($) => field("name", $._symbol),
-    comment: ($) => seq(choice(";", "*"), /.*/),
 
     _start_line: ($) =>
       prec.right(
@@ -733,7 +736,11 @@ module.exports = grammar({
 
     _end_line: ($) =>
       choice(
-        seq(optional($._ws), $.comment),
+        seq(optional($._ws), alias($._comment_semi, $.comment)),
+        // Start comment must have whitespace to avoid conflict with multiplication operator
+        // TODO: would be better if whitepace didn't form part of comment pattern
+        // This would be handled by positional comment if I could get precedence right
+        alias(/\s+\*.+/, $.comment),
         seq($._ws, alias(/.+/, $.comment)), // Positional comment - any chars allowed after statement
         $._ws // Allow trailing whitespace
       ),

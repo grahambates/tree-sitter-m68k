@@ -59,6 +59,7 @@ foo: EQU 1
 foo:EQU 1
 foo FEQU 1.1
 foo FEQU.s 1.1
+foo = bar*2
 ---
 (source_file
   (symbol_definition name: (symbol) value: (decimal_literal))
@@ -71,6 +72,12 @@ foo FEQU.s 1.1
   (symbol_definition name: (symbol) mnemonic: (directive_mnemonic) value: (decimal_literal))
   (symbol_definition name: (symbol) mnemonic: (directive_mnemonic) value: (decimal_literal))
   (symbol_definition name: (symbol) mnemonic: (directive_mnemonic) size: (size) value: (decimal_literal))
+  (symbol_definition
+    name: (symbol)
+    value: (binary_expression
+      left: (symbol)
+      operator: (operator)
+      right: (decimal_literal)))
 )
 
 ============================================
