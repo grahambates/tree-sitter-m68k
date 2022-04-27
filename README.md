@@ -1,4 +1,7 @@
-## tree-sitter-m68k
+# tree-sitter-m68k
+
+![build](https://github.com/grahambates/tree-sitter-m68k/actions/workflows/build.yml/badge.svg)
+[![npm version](https://img.shields.io/npm/v/tree-sitter-m68k.svg)](https://www.npmjs.com/package/tree-sitter-m68k)
 
 Motorola 68000 family assembly grammar for tree-sitter.
 
