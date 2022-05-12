@@ -172,6 +172,20 @@ Generic Directives
 )
 
 ============================================
+Options
+============================================
+	opt o+,ol+,op+
+---
+(source_file
+  (opt
+    mnemonic: (directive_mnemonic)
+    options: (option_list
+      (option)
+      (option)
+      (option)))
+)
+
+============================================
 Sections
 ============================================
  section "example"

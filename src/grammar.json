@@ -244,6 +244,10 @@
                     },
                     {
                       "type": "SYMBOL",
+                      "name": "opt"
+                    },
+                    {
+                      "type": "SYMBOL",
                       "name": "include"
                     },
                     {
@@ -2850,10 +2854,6 @@
           },
           {
             "type": "PATTERN",
-            "value": "[oO][pP][tT]"
-          },
-          {
-            "type": "PATTERN",
             "value": "[cC][aA][rR][gG][sS]"
           },
           {
@@ -3424,6 +3424,154 @@
         {
           "type": "PATTERN",
           "value": "[fF][aA][sS][tT]"
+        }
+      ]
+    },
+    "opt": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "mnemonic",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "PATTERN",
+              "value": "[oO][pP][tT]"
+            },
+            "named": true,
+            "value": "directive_mnemonic"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_ws"
+        },
+        {
+          "type": "FIELD",
+          "name": "options",
+          "content": {
+            "type": "SYMBOL",
+            "name": "option_list"
+          }
+        }
+      ]
+    },
+    "option_list": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "option"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_sep"
+              }
+            ]
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "option"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_sep"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "option": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "[aAcCdDlLpOoPsStTwWxX][+-]"
+        },
+        {
+          "type": "PATTERN",
+          "value": "[oO][a-zA-Z0-9]+[+-]"
+        },
+        {
+          "type": "PATTERN",
+          "value": "[lL][0-9]+"
+        },
+        {
+          "type": "PATTERN",
+          "value": "[aA][uU][tT][oO][pP][cC]"
+        },
+        {
+          "type": "PATTERN",
+          "value": "[cC][aA][sS][eE]"
+        },
+        {
+          "type": "PATTERN",
+          "value": "[cC][hH][kK][pP][cC]"
+        },
+        {
+          "type": "PATTERN",
+          "value": "[dD][eE][bB][uU][gG]"
+        },
+        {
+          "type": "PATTERN",
+          "value": "[sS][yY][mM][tT][aA][bB]"
+        },
+        {
+          "type": "PATTERN",
+          "value": "[tT][yY][pP][eE]"
+        },
+        {
+          "type": "PATTERN",
+          "value": "[wW][aA][rR][nN]"
+        },
+        {
+          "type": "PATTERN",
+          "value": "[xX][dD][eE][bB][uU][gG]"
+        },
+        {
+          "type": "PATTERN",
+          "value": "[nN][oO][aA][uU][tT][oO][pP][cC]"
+        },
+        {
+          "type": "PATTERN",
+          "value": "[nN][oO][cC][aA][sS][eE]"
+        },
+        {
+          "type": "PATTERN",
+          "value": "[nN][oO][cC][hH][kK][pP][cC]"
+        },
+        {
+          "type": "PATTERN",
+          "value": "[nN][oO][dD][eE][bB][uU][gG]"
+        },
+        {
+          "type": "PATTERN",
+          "value": "[nN][oO][sS][yY][mM][tT][aA][bB]"
+        },
+        {
+          "type": "PATTERN",
+          "value": "[nN][oO][tT][yY][pP][eE]"
+        },
+        {
+          "type": "PATTERN",
+          "value": "[nN][oO][wW][aA][rR][nN]"
+        },
+        {
+          "type": "PATTERN",
+          "value": "[nN][oO][xX][dD][eE][bB][uU][gG]"
         }
       ]
     },

@@ -827,6 +827,10 @@
           "named": true
         },
         {
+          "type": "opt",
+          "named": true
+        },
+        {
           "type": "rem",
           "named": true
         },
@@ -1641,6 +1645,52 @@
     }
   },
   {
+    "type": "opt",
+    "named": true,
+    "fields": {
+      "mnemonic": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "directive_mnemonic",
+            "named": true
+          }
+        ]
+      },
+      "options": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "option_list",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "option",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "option_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "option",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "parenthesized_expression",
     "named": true,
     "fields": {},
@@ -2079,6 +2129,10 @@
         },
         {
           "type": "macro_call",
+          "named": true
+        },
+        {
+          "type": "opt",
           "named": true
         },
         {

@@ -1,5 +1,4 @@
 // TODO:
-// OPT directive
 // < > brackets on macro parameters
 // C Style macros
 // Square brackets
@@ -524,7 +523,6 @@ const instructionsNoOperands = [
 const directives = [
   "align",
   "cnop",
-  "opt",
   "cargs",
   "comm",
   "echo",
@@ -628,7 +626,7 @@ module.exports = grammar({
     $._builtin,
   ],
 
-  extras: ($) => [], // handle whitespace manually
+  extras: () => [], // handle whitespace manually
 
   conflicts: ($) => [
     [
@@ -668,8 +666,8 @@ module.exports = grammar({
       ),
 
     comment: ($) => choice($._comment_star, $._comment_semi),
-    _comment_semi: ($) => /;.*/,
-    _comment_star: ($) => /\*.*/,
+    _comment_semi: () => /;.*/,
+    _comment_star: () => /\*.*/,
 
     _definition: ($) =>
       choice(
@@ -691,6 +689,7 @@ module.exports = grammar({
               $.conditional_instruction,
               $.directive,
               $.section,
+              $.opt,
               $.include,
               $.include_bin,
               $.include_dir,
@@ -863,6 +862,42 @@ module.exports = grammar({
     section_type: () => choice(...sectionTypes.map(caseInsensitive)),
     memory_type: () => choice(...memoryTypes.map(caseInsensitive)),
 
+    opt: ($) =>
+      seq(
+        field("mnemonic", alias(caseInsensitive("opt"), $.directive_mnemonic)),
+
+        $._ws,
+        field("options", $.option_list)
+      ),
+
+    option_list: ($) => listSep($.option, $._sep),
+
+    option: () =>
+      choice(
+        /[aAcCdDlLpOoPsStTwWxX][+-]/,
+        /[oO][a-zA-Z0-9]+[+-]/,
+        /[lL][0-9]+/,
+        // TODO: p=<type>[/<type>]
+        ...[
+          "autopc",
+          "case",
+          "chkpc",
+          "debug",
+          "symtab",
+          "type",
+          "warn",
+          "xdebug",
+          "noautopc",
+          "nocase",
+          "nochkpc",
+          "nodebug",
+          "nosymtab",
+          "notype",
+          "nowarn",
+          "noxdebug",
+        ].map(caseInsensitive)
+      ),
+
     // Instruction:
 
     instruction: ($) =>
@@ -888,7 +923,7 @@ module.exports = grammar({
       choice($._effective_address, $.register_list, $._expression),
 
     _size: ($) => choice($.size, $.macro_arg),
-    size: ($) => /[bwlsdxqBWLSDXQ]/,
+    size: () => /[bwlsdxqBWLSDXQ]/,
 
     // Directives:
 
@@ -1222,11 +1257,11 @@ module.exports = grammar({
         $.float_register
       ),
 
-    named_register: ($) => choice(...registerNames.map(caseInsensitive)),
+    named_register: () => choice(...registerNames.map(caseInsensitive)),
 
-    data_register: ($) => /[dD][0-7]/,
-    address_register: ($) => /[aA][0-7]/,
-    float_register: ($) => /[fF][pP][0-7]/,
+    data_register: () => /[dD][0-7]/,
+    address_register: () => /[aA][0-7]/,
+    float_register: () => /[fF][pP][0-7]/,
 
     _address: ($) =>
       prec(
@@ -1303,7 +1338,7 @@ module.exports = grammar({
         field("to", choice($._register, $.register_number))
       ),
 
-    register_number: ($) => /[0-7]/,
+    register_number: () => /[0-7]/,
 
     // Expressions:
 
@@ -1353,10 +1388,10 @@ module.exports = grammar({
         $.decimal_literal
       ),
 
-    hexadecimal_literal: ($) => /\$[0-9A-Fa-z]+/,
-    binary_literal: ($) => /%[01]+/,
-    octal_literal: ($) => /@[0-7]+/,
-    decimal_literal: ($) => /\d*\.?\d+/,
+    hexadecimal_literal: () => /\$[0-9A-Fa-z]+/,
+    binary_literal: () => /%[01]+/,
+    octal_literal: () => /@[0-7]+/,
+    decimal_literal: () => /\d*\.?\d+/,
 
     string_literal: ($) =>
       choice(
@@ -1374,7 +1409,7 @@ module.exports = grammar({
         )
       ),
 
-    macro_arg: ($) =>
+    macro_arg: () =>
       choice(
         /\\[0-9]/,
         "\\@",
@@ -1391,15 +1426,15 @@ module.exports = grammar({
       ),
 
     _builtin: ($) => choice($.reptn, $.carg, $.narg),
-    reptn: ($) => caseInsensitive("reptn"),
-    carg: ($) => caseInsensitive("carg"),
-    narg: ($) => caseInsensitive("narg"),
+    reptn: () => caseInsensitive("reptn"),
+    carg: () => caseInsensitive("carg"),
+    narg: () => caseInsensitive("narg"),
 
     // Misc
 
     _symbol: ($) => choice($.symbol, $.interpolated, $.macro_arg),
 
-    symbol: ($) => /\.?[a-zA-Z0-9_]+\$?/,
+    symbol: () => /\.?[a-zA-Z0-9_]+\$?/,
     symbol_list: ($) => listSep($._symbol, $._sep),
 
     interpolated: ($) =>
