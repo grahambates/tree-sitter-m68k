@@ -111,9 +111,20 @@ Macro symbols in labels
 ============================================
 \@:
 l\@:
+CFX_\1FILL:
+Color\<REPTN>:
 ---
 (source_file
   (label (macro_arg))
+  (label
+    (interpolated
+      (symbol)
+      (macro_arg)))
+  (label
+    (interpolated
+      (symbol)
+      (macro_arg)
+      (symbol)))
   (label
     (interpolated
       (symbol)

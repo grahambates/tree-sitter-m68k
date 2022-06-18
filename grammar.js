@@ -1422,7 +1422,8 @@ module.exports = grammar({
         "\\+",
         "\\-",
         /\\\.?[a-zA-Z][a-zA-Z0-9_]*/,
-        /\\\$\.?[a-zA-Z][a-zA-Z0-9_]*/
+        /\\\$\.?[a-zA-Z][a-zA-Z0-9_]*/,
+        /\\<[^>]+>/
       ),
 
     _builtin: ($) => choice($.reptn, $.carg, $.narg),
