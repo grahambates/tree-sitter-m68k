@@ -1045,8 +1045,7 @@ module.exports = grammar({
         field("count", $._expression),
         optional($._end_line),
         $._nl,
-        field("body", $.element_list),
-        $._nl,
+        optional(seq(field("body", $.element_list), $._nl)),
         $._start_line,
         $._endr_mnemonic
       ),
@@ -1133,8 +1132,7 @@ module.exports = grammar({
         ),
         optional($._end_line),
         $._nl,
-        field("body", $.element_list),
-        $._nl,
+        optional(seq(field("body", $.element_list), $._nl)),
         $._start_line,
         $._endm_mnemonic,
         optional($._end_line)

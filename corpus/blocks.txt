@@ -11,6 +11,9 @@ Repeat
   move d0,d1
   move d1,d2
   ENDR; comment
+
+  rept 6
+  endr
 ---
 (source_file
   (repeat
@@ -28,6 +31,7 @@ Repeat
           (data_register)
           (data_register))))
     (control_mnemonic))
+
   (repeat
     (control_mnemonic)
     (symbol)
@@ -44,7 +48,13 @@ Repeat
           (data_register)
           (data_register))))
     (control_mnemonic))
-  (comment))
+  (comment)
+
+  (repeat
+    (control_mnemonic)
+    (decimal_literal)
+    (control_mnemonic))
+)
 
 ============================================
 Conditional expression

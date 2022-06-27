@@ -6,6 +6,9 @@ Macro definitions
   rts
   endm
 
+  macro foo
+  endm
+
 foo MACRO;foo
   move d1,d2
   move d1,d2
@@ -25,6 +28,12 @@ foo MACRO;foo
       (instruction
         mnemonic: (instruction_mnemonic)))
     (control_mnemonic))
+
+  (macro_definition
+    (control_mnemonic)
+    name: (symbol)
+    (control_mnemonic))
+
   (macro_definition
     name: (symbol)
     (control_mnemonic)
