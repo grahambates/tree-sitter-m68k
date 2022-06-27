@@ -4713,20 +4713,33 @@
           "content": {
             "type": "REPEAT",
             "content": {
-              "type": "PATTERN",
-              "value": ".*\\n"
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "PATTERN",
+                    "value": "[^\\n]"
+                  }
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_nl"
+                }
+              ]
             }
           },
           "named": true,
           "value": "comment"
         },
         {
-          "type": "SYMBOL",
-          "name": "_start_line"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_erem_mnemonic"
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "\\s+erem"
+          },
+          "named": true,
+          "value": "control_mnemonic"
         }
       ]
     },

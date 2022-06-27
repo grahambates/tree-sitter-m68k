@@ -308,15 +308,22 @@ Rem
 ============================================
  rem
  foo
- foo
+
  foo
  erem
+
+ move d0,d1
 ---
 (source_file
   (rem
     (control_mnemonic)
     (comment)
     (control_mnemonic))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (data_register)
+      (data_register)))
 )
 
 ============================================

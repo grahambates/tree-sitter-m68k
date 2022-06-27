@@ -1912,14 +1912,6 @@
         {
           "type": "control_mnemonic",
           "named": true
-        },
-        {
-          "type": "external_label",
-          "named": true
-        },
-        {
-          "type": "label",
-          "named": true
         }
       ]
     }

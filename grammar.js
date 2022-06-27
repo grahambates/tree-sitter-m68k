@@ -1110,9 +1110,8 @@ module.exports = grammar({
         $._rem_mnemonic,
         optional($._end_line),
         $._nl,
-        alias(repeat(/.*\n/), $.comment),
-        $._start_line,
-        $._erem_mnemonic
+        alias(repeat(seq(repeat(/[^\n]/), $._nl)), $.comment),
+        alias(/\s+erem/, $.control_mnemonic)
       ),
 
     end: ($) => prec.right(seq($._end_mnemonic, listSep(/.*/, $._nl))),
