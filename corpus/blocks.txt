@@ -58,6 +58,9 @@ Conditional expression
  IFEQ foo
  move d0,d1
  ENDIF
+
+ IFEQ foo
+ ENDIF
 ---
 (source_file
   (conditional
@@ -93,7 +96,13 @@ Conditional expression
         operands: (operand_list
           (data_register)
           (data_register))))
-    (control_mnemonic)))
+    (control_mnemonic))
+
+  (conditional
+    mnemonic: (control_mnemonic)
+    test: (symbol)
+    (control_mnemonic))
+)
 
 ============================================
 Else

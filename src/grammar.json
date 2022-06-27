@@ -4582,50 +4582,14 @@
           "name": "_nl"
         },
         {
-          "type": "FIELD",
-          "name": "consequent",
-          "content": {
-            "type": "SYMBOL",
-            "name": "element_list"
-          }
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_nl"
-        },
-        {
           "type": "CHOICE",
           "members": [
             {
               "type": "SEQ",
               "members": [
                 {
-                  "type": "SYMBOL",
-                  "name": "_start_line"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "_else_mnemonic"
-                },
-                {
-                  "type": "CHOICE",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "_end_line"
-                    },
-                    {
-                      "type": "BLANK"
-                    }
-                  ]
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "_nl"
-                },
-                {
                   "type": "FIELD",
-                  "name": "alternate",
+                  "name": "consequent",
                   "content": {
                     "type": "SYMBOL",
                     "name": "element_list"
@@ -4634,6 +4598,55 @@
                 {
                   "type": "SYMBOL",
                   "name": "_nl"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "_start_line"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "_else_mnemonic"
+                        },
+                        {
+                          "type": "CHOICE",
+                          "members": [
+                            {
+                              "type": "SYMBOL",
+                              "name": "_end_line"
+                            },
+                            {
+                              "type": "BLANK"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "_nl"
+                        },
+                        {
+                          "type": "FIELD",
+                          "name": "alternate",
+                          "content": {
+                            "type": "SYMBOL",
+                            "name": "element_list"
+                          }
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "_nl"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
                 }
               ]
             },

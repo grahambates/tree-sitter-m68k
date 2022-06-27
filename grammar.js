@@ -1080,16 +1080,20 @@ module.exports = grammar({
         ),
         optional($._end_line),
         $._nl,
-        field("consequent", $.element_list),
-        $._nl,
         optional(
           seq(
-            $._start_line,
-            $._else_mnemonic,
-            optional($._end_line),
+            field("consequent", $.element_list),
             $._nl,
-            field("alternate", $.element_list),
-            $._nl
+            optional(
+              seq(
+                $._start_line,
+                $._else_mnemonic,
+                optional($._end_line),
+                $._nl,
+                field("alternate", $.element_list),
+                $._nl
+              )
+            )
           )
         ),
         $._start_line,
