@@ -1399,15 +1399,29 @@ module.exports = grammar({
         // Single quoted
         seq(
           "'",
-          repeat(choice(prec(1, /[^'\n\\]+/), "\\'", "''", $.macro_arg)),
+          repeat(
+            choice(
+              prec(1, /[^'\n\\]+/), // Normal chars
+              "''", // Repeat quote escape
+              $._string_escape_codes
+            )
+          ),
           "'"
         ),
         // Double quoted
         seq(
           '"',
-          repeat(choice(prec(1, /[^"\n\\]+/), '\\"', '""', $.macro_arg)),
+          repeat(choice(prec(1, /[^"\n\\]+/), '""', $._string_escape_codes)),
           '"'
         )
+      ),
+
+    _string_escape_codes: ($) =>
+      choice(
+        /\\[\\bfnrt"'e]/, // Single char escape codes
+        /\\[0-7]+/, // Octal character code
+        /\\[xX][0-9a-f]+/, // Hex charcter code
+        $.macro_arg
       ),
 
     macro_arg: () =>

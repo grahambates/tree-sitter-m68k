@@ -44,7 +44,8 @@ String Literals
 	move "foo \"bar\" baz",d0
 	move 'foo bar',d0
 	move 'foo ''bar'' baz',d0
-	move 'foo \'bar\' baz',d0
+	move 'foo \t \n \xf9 \X9f \17 \'bar\' baz',d0
+	move 'foo \@ baz',d0
 ---
 (source_file
   (instruction
@@ -65,6 +66,9 @@ String Literals
   (instruction
     mnemonic: (instruction_mnemonic)
     operands: (operand_list (string_literal) (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list (string_literal (macro_arg)) (data_register)))
 )
 
 ============================================

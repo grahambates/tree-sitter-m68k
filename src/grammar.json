@@ -6725,15 +6725,11 @@
                   },
                   {
                     "type": "STRING",
-                    "value": "\\'"
-                  },
-                  {
-                    "type": "STRING",
                     "value": "''"
                   },
                   {
                     "type": "SYMBOL",
-                    "name": "macro_arg"
+                    "name": "_string_escape_codes"
                   }
                 ]
               }
@@ -6766,15 +6762,11 @@
                   },
                   {
                     "type": "STRING",
-                    "value": "\\\""
-                  },
-                  {
-                    "type": "STRING",
                     "value": "\"\""
                   },
                   {
                     "type": "SYMBOL",
-                    "name": "macro_arg"
+                    "name": "_string_escape_codes"
                   }
                 ]
               }
@@ -6784,6 +6776,27 @@
               "value": "\""
             }
           ]
+        }
+      ]
+    },
+    "_string_escape_codes": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "\\\\[\\\\bfnrt\"'e]"
+        },
+        {
+          "type": "PATTERN",
+          "value": "\\\\[0-7]+"
+        },
+        {
+          "type": "PATTERN",
+          "value": "\\\\[xX][0-9a-f]+"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "macro_arg"
         }
       ]
     },
