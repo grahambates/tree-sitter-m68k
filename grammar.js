@@ -1033,7 +1033,8 @@ module.exports = grammar({
       seq(
         field("name", $._symbol),
         optional(seq(".", field("qualifier", $._size))),
-        optional(seq($._ws, field("operands", $.operand_list)))
+        optional(seq($._ws, field("operands", $.operand_list))),
+        optional($._ws)
       ),
 
     // Block / multiline:

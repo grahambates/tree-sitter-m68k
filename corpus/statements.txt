@@ -120,7 +120,7 @@ Instructions
 Macro calls
 ============================================
   MyMacro
-  MyMacro d0,d1
+  MyMacro d0,d1 
 foo:  MyMacro d0,d1
 bar:  MyMacro
 baz:  MyMacro d0,d1 ; example

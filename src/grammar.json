@@ -4385,6 +4385,18 @@
               "type": "BLANK"
             }
           ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_ws"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
