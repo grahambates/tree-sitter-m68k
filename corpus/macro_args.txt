@@ -63,7 +63,7 @@ Interpolated symbols in operands
  move d\1,d1
  move \1+2,d1
  move \11,d1
- move f\@.oo,d1
+ move f\@!oo,d1
  move .\1,d1
 ---
 (source_file
@@ -71,7 +71,6 @@ Interpolated symbols in operands
     mnemonic: (instruction_mnemonic)
     operands: (operand_list
       (interpolated
-        (symbol)
         (macro_arg))
       (data_register)))
   (instruction
@@ -86,22 +85,18 @@ Interpolated symbols in operands
     mnemonic: (instruction_mnemonic)
     operands: (operand_list
       (interpolated
-        (macro_arg)
-        (symbol))
+        (macro_arg))
       (data_register)))
   (instruction
     mnemonic: (instruction_mnemonic)
     operands: (operand_list
       (interpolated
-        (symbol)
-        (macro_arg)
-        (symbol))
+        (macro_arg))
       (data_register)))
   (instruction
     mnemonic: (instruction_mnemonic)
     operands: (operand_list
       (interpolated
-        (symbol)
         (macro_arg))
       (data_register)))
 )
@@ -117,18 +112,33 @@ Color\<REPTN>:
 (source_file
   (label (macro_arg))
   (label
-    (interpolated
-      (symbol)
-      (macro_arg)))
+    (interpolated (macro_arg)))
   (label
-    (interpolated
-      (symbol)
-      (macro_arg)
-      (symbol)))
+    (interpolated (macro_arg)))
   (label
+    (interpolated (macro_arg))))
+
+============================================
+Macro symbols in mnemonic
+============================================
+ \1.w d0,d1
+ foo\1bar.w d0,d1
+---
+(source_file
+  (macro_call
+    (macro_arg)
+    (size)
+    (operand_list
+      (data_register)
+      (data_register)))
+  (macro_call
     (interpolated
-      (symbol)
-      (macro_arg))))
+      (macro_arg))
+    (size)
+    (operand_list
+      (data_register)
+      (data_register)))
+)
 
 ============================================
 Macro symbols as size

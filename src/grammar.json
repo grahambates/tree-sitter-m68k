@@ -1,6 +1,6 @@
 {
   "name": "m68k",
-  "word": "symbol",
+  "word": "_symbol_chars",
   "rules": {
     "source_file": {
       "type": "SEQ",
@@ -6915,9 +6915,42 @@
         }
       ]
     },
-    "symbol": {
+    "_symbol_chars": {
       "type": "PATTERN",
-      "value": "\\.?[a-zA-Z0-9_]+\\$?"
+      "value": "[a-zA-Z0-9_]+"
+    },
+    "symbol": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "."
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_symbol_chars"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "$"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
     },
     "symbol_list": {
       "type": "SEQ",
@@ -6957,74 +6990,97 @@
       ]
     },
     "interpolated": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "macro_arg"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "symbol"
-                }
-              ]
-            },
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "symbol"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "macro_arg"
-                }
-              ]
-            },
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "ALIAS",
-                  "content": {
-                    "type": "STRING",
-                    "value": "."
-                  },
-                  "named": true,
-                  "value": "symbol"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "macro_arg"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "REPEAT",
-          "content": {
+      "type": "PREC",
+      "value": 1,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
             "type": "CHOICE",
             "members": [
               {
-                "type": "SYMBOL",
-                "name": "macro_arg"
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "macro_arg"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "_symbol_chars"
+                  }
+                ]
               },
               {
-                "type": "SYMBOL",
-                "name": "symbol"
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": "."
+                      },
+                      {
+                        "type": "BLANK"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "_symbol_chars"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "macro_arg"
+                  }
+                ]
+              },
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "."
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "macro_arg"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "REPEAT",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "macro_arg"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_symbol_chars"
+                }
+              ]
+            }
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "$"
+              },
+              {
+                "type": "BLANK"
               }
             ]
           }
-        }
-      ]
+        ]
+      }
     },
     "_macro_name": {
       "type": "ALIAS",

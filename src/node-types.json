@@ -1306,10 +1306,6 @@
         {
           "type": "macro_arg",
           "named": true
-        },
-        {
-          "type": "symbol",
-          "named": true
         }
       ]
     }
@@ -2158,6 +2154,11 @@
     }
   },
   {
+    "type": "symbol",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "symbol_assignment",
     "named": true,
     "fields": {
@@ -2379,6 +2380,10 @@
     "named": false
   },
   {
+    "type": "$",
+    "named": false
+  },
+  {
     "type": "'",
     "named": false
   },
@@ -2528,10 +2533,6 @@
   },
   {
     "type": "size",
-    "named": true
-  },
-  {
-    "type": "symbol",
     "named": true
   }
 ]

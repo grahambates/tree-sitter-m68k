@@ -612,7 +612,7 @@ const registerNames = ["sp", "pc", "sr", "ccr", "usp", "vbr"];
 module.exports = grammar({
   name: "m68k",
 
-  word: ($) => $.symbol,
+  word: ($) => $._symbol_chars,
 
   supertypes: ($) => [
     $._mnemonic,
@@ -1451,17 +1451,22 @@ module.exports = grammar({
 
     _symbol: ($) => choice($.symbol, $.interpolated, $.macro_arg),
 
-    symbol: () => /\.?[a-zA-Z0-9_]+\$?/,
+    _symbol_chars: () => /[a-zA-Z0-9_]+/,
+    symbol: ($) => seq(optional("."), $._symbol_chars, optional("$")),
     symbol_list: ($) => listSep($._symbol, $._sep),
 
     interpolated: ($) =>
-      seq(
-        choice(
-          seq($.macro_arg, $.symbol),
-          seq($.symbol, $.macro_arg),
-          seq(alias(".", $.symbol), $.macro_arg)
-        ),
-        repeat(choice($.macro_arg, $.symbol))
+      prec(
+        1,
+        seq(
+          choice(
+            seq($.macro_arg, $._symbol_chars),
+            seq(optional("."), $._symbol_chars, $.macro_arg),
+            seq(".", $.macro_arg)
+          ),
+          repeat(choice($.macro_arg, $._symbol_chars)),
+          optional("$")
+        )
       ),
 
     _macro_name: ($) => alias(prec(-1, /\.?[a-zA-Z0-9_]+/), $.symbol),
