@@ -7,6 +7,16 @@ Motorola 68000 family assembly grammar for tree-sitter.
 
 Aims to support syntax and features for [VASM](http://www.compilers.de/vasm.html), as well as native assemblers such as ASMOne and Devpac.
 
+## Usage
+
+### Neovim
+
+With [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) run:
+
+```
+:TSInstall m68k
+```
+
 ## References
 
 - [68000 Programmer's Reference Manual](https://www.nxp.com/docs/en/reference-manual/M68000PRM.pdf)
