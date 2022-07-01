@@ -1277,7 +1277,7 @@ module.exports = grammar({
       seq("(", field("register", $._address), ")+"),
 
     indirect_address_predec: ($) =>
-      seq("-(", field("register", $._address), ")"),
+      seq("-", "(", field("register", $._address), ")"),
 
     offset_address: ($) =>
       choice(
