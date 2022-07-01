@@ -220,6 +220,10 @@
         "named": true
       },
       {
+        "type": "pc",
+        "named": true
+      },
+      {
         "type": "symbol",
         "named": true
       }
@@ -1741,6 +1745,11 @@
     }
   },
   {
+    "type": "pc",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "register_definition",
     "named": true,
     "fields": {
@@ -2405,6 +2414,10 @@
   },
   {
     "type": ").",
+    "named": false
+  },
+  {
+    "type": "*",
     "named": false
   },
   {

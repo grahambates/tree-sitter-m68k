@@ -150,3 +150,26 @@ Built-in symbols
       (narg)
       (data_register)))
 )
+
+============================================
+PC
+============================================
+	move *+2,d0
+label = *+2
+---
+(source_file
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (binary_expression
+        left: (pc)
+        operator: (operator)
+        right: (decimal_literal))
+          (data_register)))
+      (symbol_definition
+        name: (symbol)
+        value: (binary_expression
+          left: (pc)
+          operator: (operator)
+          right: (decimal_literal)))
+)

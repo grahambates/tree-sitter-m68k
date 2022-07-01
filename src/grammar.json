@@ -6912,6 +6912,10 @@
         {
           "type": "SYMBOL",
           "name": "macro_arg"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "pc"
         }
       ]
     },
@@ -6988,6 +6992,10 @@
           ]
         }
       ]
+    },
+    "pc": {
+      "type": "STRING",
+      "value": "*"
     },
     "interpolated": {
       "type": "PREC",

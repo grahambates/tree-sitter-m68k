@@ -1449,11 +1449,13 @@ module.exports = grammar({
 
     // Misc
 
-    _symbol: ($) => choice($.symbol, $.interpolated, $.macro_arg),
+    _symbol: ($) => choice($.symbol, $.interpolated, $.macro_arg, $.pc),
 
     _symbol_chars: () => /[a-zA-Z0-9_]+/,
     symbol: ($) => seq(optional("."), $._symbol_chars, optional("$")),
     symbol_list: ($) => listSep($._symbol, $._sep),
+
+    pc: () => "*",
 
     interpolated: ($) =>
       prec(
