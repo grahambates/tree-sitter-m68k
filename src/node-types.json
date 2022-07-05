@@ -1,235 +1,5 @@
 [
   {
-    "type": "_builtin",
-    "named": true,
-    "subtypes": [
-      {
-        "type": "carg",
-        "named": true
-      },
-      {
-        "type": "narg",
-        "named": true
-      },
-      {
-        "type": "reptn",
-        "named": true
-      }
-    ]
-  },
-  {
-    "type": "_definition",
-    "named": true,
-    "subtypes": [
-      {
-        "type": "macro_definition",
-        "named": true
-      },
-      {
-        "type": "offset_definition",
-        "named": true
-      },
-      {
-        "type": "register_definition",
-        "named": true
-      },
-      {
-        "type": "register_list_definition",
-        "named": true
-      },
-      {
-        "type": "symbol_assignment",
-        "named": true
-      },
-      {
-        "type": "symbol_definition",
-        "named": true
-      }
-    ]
-  },
-  {
-    "type": "_effective_address",
-    "named": true,
-    "subtypes": [
-      {
-        "type": "_register",
-        "named": true
-      },
-      {
-        "type": "absolute_value",
-        "named": true
-      },
-      {
-        "type": "immediate_value",
-        "named": true
-      },
-      {
-        "type": "indirect_address",
-        "named": true
-      },
-      {
-        "type": "indirect_address_postinc",
-        "named": true
-      },
-      {
-        "type": "indirect_address_predec",
-        "named": true
-      },
-      {
-        "type": "offset_address",
-        "named": true
-      },
-      {
-        "type": "offset_address_idx",
-        "named": true
-      }
-    ]
-  },
-  {
-    "type": "_mnemonic",
-    "named": true,
-    "subtypes": [
-      {
-        "type": "control_mnemonic",
-        "named": true
-      },
-      {
-        "type": "directive_mnemonic",
-        "named": true
-      },
-      {
-        "type": "instruction_mnemonic",
-        "named": true
-      },
-      {
-        "type": "section_type",
-        "named": true
-      }
-    ]
-  },
-  {
-    "type": "_numeric_literal",
-    "named": true,
-    "subtypes": [
-      {
-        "type": "binary_literal",
-        "named": true
-      },
-      {
-        "type": "decimal_literal",
-        "named": true
-      },
-      {
-        "type": "hexadecimal_literal",
-        "named": true
-      },
-      {
-        "type": "octal_literal",
-        "named": true
-      }
-    ]
-  },
-  {
-    "type": "_operand",
-    "named": true,
-    "subtypes": [
-      {
-        "type": "_builtin",
-        "named": true
-      },
-      {
-        "type": "_effective_address",
-        "named": true
-      },
-      {
-        "type": "_numeric_literal",
-        "named": true
-      },
-      {
-        "type": "_symbol",
-        "named": true
-      },
-      {
-        "type": "binary_expression",
-        "named": true
-      },
-      {
-        "type": "parenthesized_expression",
-        "named": true
-      },
-      {
-        "type": "register_list",
-        "named": true
-      },
-      {
-        "type": "string_literal",
-        "named": true
-      },
-      {
-        "type": "unary_expression",
-        "named": true
-      }
-    ]
-  },
-  {
-    "type": "_register",
-    "named": true,
-    "subtypes": [
-      {
-        "type": "address_register",
-        "named": true
-      },
-      {
-        "type": "data_register",
-        "named": true
-      },
-      {
-        "type": "float_register",
-        "named": true
-      },
-      {
-        "type": "named_register",
-        "named": true
-      }
-    ]
-  },
-  {
-    "type": "_size",
-    "named": true,
-    "subtypes": [
-      {
-        "type": "macro_arg",
-        "named": true
-      },
-      {
-        "type": "size",
-        "named": true
-      }
-    ]
-  },
-  {
-    "type": "_symbol",
-    "named": true,
-    "subtypes": [
-      {
-        "type": "interpolated",
-        "named": true
-      },
-      {
-        "type": "macro_arg",
-        "named": true
-      },
-      {
-        "type": "pc",
-        "named": true
-      },
-      {
-        "type": "symbol",
-        "named": true
-      }
-    ]
-  },
-  {
     "type": "absolute_value",
     "named": true,
     "fields": {
@@ -238,7 +8,11 @@
         "required": true,
         "types": [
           {
-            "type": "_size",
+            "type": "macro_arg",
+            "named": true
+          },
+          {
+            "type": "size",
             "named": true
           }
         ]
@@ -248,19 +22,39 @@
         "required": true,
         "types": [
           {
-            "type": "_builtin",
-            "named": true
-          },
-          {
-            "type": "_numeric_literal",
-            "named": true
-          },
-          {
-            "type": "_symbol",
-            "named": true
-          },
-          {
             "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "binary_literal",
+            "named": true
+          },
+          {
+            "type": "carg",
+            "named": true
+          },
+          {
+            "type": "decimal_literal",
+            "named": true
+          },
+          {
+            "type": "hexadecimal_literal",
+            "named": true
+          },
+          {
+            "type": "interpolated",
+            "named": true
+          },
+          {
+            "type": "macro_arg",
+            "named": true
+          },
+          {
+            "type": "narg",
+            "named": true
+          },
+          {
+            "type": "octal_literal",
             "named": true
           },
           {
@@ -268,7 +62,19 @@
             "named": true
           },
           {
+            "type": "pc",
+            "named": true
+          },
+          {
+            "type": "reptn",
+            "named": true
+          },
+          {
             "type": "string_literal",
+            "named": true
+          },
+          {
+            "type": "symbol",
             "named": true
           },
           {
@@ -288,19 +94,39 @@
         "required": true,
         "types": [
           {
-            "type": "_builtin",
-            "named": true
-          },
-          {
-            "type": "_numeric_literal",
-            "named": true
-          },
-          {
-            "type": "_symbol",
-            "named": true
-          },
-          {
             "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "binary_literal",
+            "named": true
+          },
+          {
+            "type": "carg",
+            "named": true
+          },
+          {
+            "type": "decimal_literal",
+            "named": true
+          },
+          {
+            "type": "hexadecimal_literal",
+            "named": true
+          },
+          {
+            "type": "interpolated",
+            "named": true
+          },
+          {
+            "type": "macro_arg",
+            "named": true
+          },
+          {
+            "type": "narg",
+            "named": true
+          },
+          {
+            "type": "octal_literal",
             "named": true
           },
           {
@@ -308,7 +134,19 @@
             "named": true
           },
           {
+            "type": "pc",
+            "named": true
+          },
+          {
+            "type": "reptn",
+            "named": true
+          },
+          {
             "type": "string_literal",
+            "named": true
+          },
+          {
+            "type": "symbol",
             "named": true
           },
           {
@@ -332,19 +170,39 @@
         "required": true,
         "types": [
           {
-            "type": "_builtin",
-            "named": true
-          },
-          {
-            "type": "_numeric_literal",
-            "named": true
-          },
-          {
-            "type": "_symbol",
-            "named": true
-          },
-          {
             "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "binary_literal",
+            "named": true
+          },
+          {
+            "type": "carg",
+            "named": true
+          },
+          {
+            "type": "decimal_literal",
+            "named": true
+          },
+          {
+            "type": "hexadecimal_literal",
+            "named": true
+          },
+          {
+            "type": "interpolated",
+            "named": true
+          },
+          {
+            "type": "macro_arg",
+            "named": true
+          },
+          {
+            "type": "narg",
+            "named": true
+          },
+          {
+            "type": "octal_literal",
             "named": true
           },
           {
@@ -352,7 +210,19 @@
             "named": true
           },
           {
+            "type": "pc",
+            "named": true
+          },
+          {
+            "type": "reptn",
+            "named": true
+          },
+          {
             "type": "string_literal",
+            "named": true
+          },
+          {
+            "type": "symbol",
             "named": true
           },
           {
@@ -397,19 +267,39 @@
         "required": false,
         "types": [
           {
-            "type": "_builtin",
-            "named": true
-          },
-          {
-            "type": "_numeric_literal",
-            "named": true
-          },
-          {
-            "type": "_symbol",
-            "named": true
-          },
-          {
             "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "binary_literal",
+            "named": true
+          },
+          {
+            "type": "carg",
+            "named": true
+          },
+          {
+            "type": "decimal_literal",
+            "named": true
+          },
+          {
+            "type": "hexadecimal_literal",
+            "named": true
+          },
+          {
+            "type": "interpolated",
+            "named": true
+          },
+          {
+            "type": "macro_arg",
+            "named": true
+          },
+          {
+            "type": "narg",
+            "named": true
+          },
+          {
+            "type": "octal_literal",
             "named": true
           },
           {
@@ -417,7 +307,19 @@
             "named": true
           },
           {
+            "type": "pc",
+            "named": true
+          },
+          {
+            "type": "reptn",
+            "named": true
+          },
+          {
             "type": "string_literal",
+            "named": true
+          },
+          {
+            "type": "symbol",
             "named": true
           },
           {
@@ -441,19 +343,39 @@
         "required": false,
         "types": [
           {
-            "type": "_builtin",
-            "named": true
-          },
-          {
-            "type": "_numeric_literal",
-            "named": true
-          },
-          {
-            "type": "_symbol",
-            "named": true
-          },
-          {
             "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "binary_literal",
+            "named": true
+          },
+          {
+            "type": "carg",
+            "named": true
+          },
+          {
+            "type": "decimal_literal",
+            "named": true
+          },
+          {
+            "type": "hexadecimal_literal",
+            "named": true
+          },
+          {
+            "type": "interpolated",
+            "named": true
+          },
+          {
+            "type": "macro_arg",
+            "named": true
+          },
+          {
+            "type": "narg",
+            "named": true
+          },
+          {
+            "type": "octal_literal",
             "named": true
           },
           {
@@ -461,7 +383,19 @@
             "named": true
           },
           {
+            "type": "pc",
+            "named": true
+          },
+          {
+            "type": "reptn",
+            "named": true
+          },
+          {
             "type": "string_literal",
+            "named": true
+          },
+          {
+            "type": "symbol",
             "named": true
           },
           {
@@ -475,19 +409,39 @@
         "required": false,
         "types": [
           {
-            "type": "_builtin",
-            "named": true
-          },
-          {
-            "type": "_numeric_literal",
-            "named": true
-          },
-          {
-            "type": "_symbol",
-            "named": true
-          },
-          {
             "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "binary_literal",
+            "named": true
+          },
+          {
+            "type": "carg",
+            "named": true
+          },
+          {
+            "type": "decimal_literal",
+            "named": true
+          },
+          {
+            "type": "hexadecimal_literal",
+            "named": true
+          },
+          {
+            "type": "interpolated",
+            "named": true
+          },
+          {
+            "type": "macro_arg",
+            "named": true
+          },
+          {
+            "type": "narg",
+            "named": true
+          },
+          {
+            "type": "octal_literal",
             "named": true
           },
           {
@@ -495,7 +449,19 @@
             "named": true
           },
           {
+            "type": "pc",
+            "named": true
+          },
+          {
+            "type": "reptn",
+            "named": true
+          },
+          {
             "type": "string_literal",
+            "named": true
+          },
+          {
+            "type": "symbol",
             "named": true
           },
           {
@@ -547,19 +513,39 @@
         "required": true,
         "types": [
           {
-            "type": "_builtin",
-            "named": true
-          },
-          {
-            "type": "_numeric_literal",
-            "named": true
-          },
-          {
-            "type": "_symbol",
-            "named": true
-          },
-          {
             "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "binary_literal",
+            "named": true
+          },
+          {
+            "type": "carg",
+            "named": true
+          },
+          {
+            "type": "decimal_literal",
+            "named": true
+          },
+          {
+            "type": "hexadecimal_literal",
+            "named": true
+          },
+          {
+            "type": "interpolated",
+            "named": true
+          },
+          {
+            "type": "macro_arg",
+            "named": true
+          },
+          {
+            "type": "narg",
+            "named": true
+          },
+          {
+            "type": "octal_literal",
             "named": true
           },
           {
@@ -567,7 +553,19 @@
             "named": true
           },
           {
+            "type": "pc",
+            "named": true
+          },
+          {
+            "type": "reptn",
+            "named": true
+          },
+          {
             "type": "string_literal",
+            "named": true
+          },
+          {
+            "type": "symbol",
             "named": true
           },
           {
@@ -607,7 +605,11 @@
         "required": false,
         "types": [
           {
-            "type": "_size",
+            "type": "macro_arg",
+            "named": true
+          },
+          {
+            "type": "size",
             "named": true
           }
         ]
@@ -633,19 +635,39 @@
         "required": false,
         "types": [
           {
-            "type": "_builtin",
-            "named": true
-          },
-          {
-            "type": "_numeric_literal",
-            "named": true
-          },
-          {
-            "type": "_symbol",
-            "named": true
-          },
-          {
             "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "binary_literal",
+            "named": true
+          },
+          {
+            "type": "carg",
+            "named": true
+          },
+          {
+            "type": "decimal_literal",
+            "named": true
+          },
+          {
+            "type": "hexadecimal_literal",
+            "named": true
+          },
+          {
+            "type": "interpolated",
+            "named": true
+          },
+          {
+            "type": "macro_arg",
+            "named": true
+          },
+          {
+            "type": "narg",
+            "named": true
+          },
+          {
+            "type": "octal_literal",
             "named": true
           },
           {
@@ -653,7 +675,19 @@
             "named": true
           },
           {
+            "type": "pc",
+            "named": true
+          },
+          {
+            "type": "reptn",
+            "named": true
+          },
+          {
             "type": "string_literal",
+            "named": true
+          },
+          {
+            "type": "symbol",
             "named": true
           },
           {
@@ -667,19 +701,39 @@
         "required": true,
         "types": [
           {
-            "type": "_builtin",
-            "named": true
-          },
-          {
-            "type": "_numeric_literal",
-            "named": true
-          },
-          {
-            "type": "_symbol",
-            "named": true
-          },
-          {
             "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "binary_literal",
+            "named": true
+          },
+          {
+            "type": "carg",
+            "named": true
+          },
+          {
+            "type": "decimal_literal",
+            "named": true
+          },
+          {
+            "type": "hexadecimal_literal",
+            "named": true
+          },
+          {
+            "type": "interpolated",
+            "named": true
+          },
+          {
+            "type": "macro_arg",
+            "named": true
+          },
+          {
+            "type": "narg",
+            "named": true
+          },
+          {
+            "type": "octal_literal",
             "named": true
           },
           {
@@ -687,7 +741,19 @@
             "named": true
           },
           {
+            "type": "pc",
+            "named": true
+          },
+          {
+            "type": "reptn",
+            "named": true
+          },
+          {
             "type": "string_literal",
+            "named": true
+          },
+          {
+            "type": "symbol",
             "named": true
           },
           {
@@ -711,7 +777,11 @@
         "required": false,
         "types": [
           {
-            "type": "_size",
+            "type": "macro_arg",
+            "named": true
+          },
+          {
+            "type": "size",
             "named": true
           }
         ]
@@ -747,7 +817,11 @@
         "required": false,
         "types": [
           {
-            "type": "_size",
+            "type": "macro_arg",
+            "named": true
+          },
+          {
+            "type": "size",
             "named": true
           }
         ]
@@ -762,10 +836,6 @@
       "multiple": true,
       "required": false,
       "types": [
-        {
-          "type": "_definition",
-          "named": true
-        },
         {
           "type": "comment",
           "named": true
@@ -831,7 +901,23 @@
           "named": true
         },
         {
+          "type": "macro_definition",
+          "named": true
+        },
+        {
+          "type": "offset_definition",
+          "named": true
+        },
+        {
           "type": "opt",
+          "named": true
+        },
+        {
+          "type": "register_definition",
+          "named": true
+        },
+        {
+          "type": "register_list_definition",
           "named": true
         },
         {
@@ -845,6 +931,14 @@
         {
           "type": "section",
           "named": true
+        },
+        {
+          "type": "symbol_assignment",
+          "named": true
+        },
+        {
+          "type": "symbol_definition",
+          "named": true
         }
       ]
     }
@@ -854,11 +948,19 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
           "type": "control_mnemonic",
+          "named": true
+        },
+        {
+          "type": "external_label",
+          "named": true
+        },
+        {
+          "type": "label",
           "named": true
         }
       ]
@@ -873,19 +975,39 @@
       "required": true,
       "types": [
         {
-          "type": "_builtin",
-          "named": true
-        },
-        {
-          "type": "_numeric_literal",
-          "named": true
-        },
-        {
-          "type": "_symbol",
-          "named": true
-        },
-        {
           "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "binary_literal",
+          "named": true
+        },
+        {
+          "type": "carg",
+          "named": true
+        },
+        {
+          "type": "decimal_literal",
+          "named": true
+        },
+        {
+          "type": "hexadecimal_literal",
+          "named": true
+        },
+        {
+          "type": "interpolated",
+          "named": true
+        },
+        {
+          "type": "macro_arg",
+          "named": true
+        },
+        {
+          "type": "narg",
+          "named": true
+        },
+        {
+          "type": "octal_literal",
           "named": true
         },
         {
@@ -893,7 +1015,19 @@
           "named": true
         },
         {
+          "type": "pc",
+          "named": true
+        },
+        {
+          "type": "reptn",
+          "named": true
+        },
+        {
           "type": "string_literal",
+          "named": true
+        },
+        {
+          "type": "symbol",
           "named": true
         },
         {
@@ -938,7 +1072,19 @@
         "required": true,
         "types": [
           {
-            "type": "_symbol",
+            "type": "interpolated",
+            "named": true
+          },
+          {
+            "type": "macro_arg",
+            "named": true
+          },
+          {
+            "type": "pc",
+            "named": true
+          },
+          {
+            "type": "symbol",
             "named": true
           }
         ]
@@ -980,15 +1126,27 @@
         "required": true,
         "types": [
           {
-            "type": "_symbol",
-            "named": true
-          },
-          {
             "type": "address_register",
             "named": true
           },
           {
             "type": "data_register",
+            "named": true
+          },
+          {
+            "type": "interpolated",
+            "named": true
+          },
+          {
+            "type": "macro_arg",
+            "named": true
+          },
+          {
+            "type": "pc",
+            "named": true
+          },
+          {
+            "type": "symbol",
             "named": true
           }
         ]
@@ -998,7 +1156,11 @@
         "required": false,
         "types": [
           {
-            "type": "_size",
+            "type": "macro_arg",
+            "named": true
+          },
+          {
+            "type": "size",
             "named": true
           }
         ]
@@ -1014,19 +1176,39 @@
         "required": true,
         "types": [
           {
-            "type": "_builtin",
-            "named": true
-          },
-          {
-            "type": "_numeric_literal",
-            "named": true
-          },
-          {
-            "type": "_symbol",
-            "named": true
-          },
-          {
             "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "binary_literal",
+            "named": true
+          },
+          {
+            "type": "carg",
+            "named": true
+          },
+          {
+            "type": "decimal_literal",
+            "named": true
+          },
+          {
+            "type": "hexadecimal_literal",
+            "named": true
+          },
+          {
+            "type": "interpolated",
+            "named": true
+          },
+          {
+            "type": "macro_arg",
+            "named": true
+          },
+          {
+            "type": "narg",
+            "named": true
+          },
+          {
+            "type": "octal_literal",
             "named": true
           },
           {
@@ -1034,7 +1216,19 @@
             "named": true
           },
           {
+            "type": "pc",
+            "named": true
+          },
+          {
+            "type": "reptn",
+            "named": true
+          },
+          {
             "type": "string_literal",
+            "named": true
+          },
+          {
+            "type": "symbol",
             "named": true
           },
           {
@@ -1080,19 +1274,39 @@
         "required": false,
         "types": [
           {
-            "type": "_builtin",
-            "named": true
-          },
-          {
-            "type": "_numeric_literal",
-            "named": true
-          },
-          {
-            "type": "_symbol",
-            "named": true
-          },
-          {
             "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "binary_literal",
+            "named": true
+          },
+          {
+            "type": "carg",
+            "named": true
+          },
+          {
+            "type": "decimal_literal",
+            "named": true
+          },
+          {
+            "type": "hexadecimal_literal",
+            "named": true
+          },
+          {
+            "type": "interpolated",
+            "named": true
+          },
+          {
+            "type": "macro_arg",
+            "named": true
+          },
+          {
+            "type": "narg",
+            "named": true
+          },
+          {
+            "type": "octal_literal",
             "named": true
           },
           {
@@ -1100,7 +1314,19 @@
             "named": true
           },
           {
+            "type": "pc",
+            "named": true
+          },
+          {
+            "type": "reptn",
+            "named": true
+          },
+          {
             "type": "string_literal",
+            "named": true
+          },
+          {
+            "type": "symbol",
             "named": true
           },
           {
@@ -1114,19 +1340,39 @@
         "required": false,
         "types": [
           {
-            "type": "_builtin",
-            "named": true
-          },
-          {
-            "type": "_numeric_literal",
-            "named": true
-          },
-          {
-            "type": "_symbol",
-            "named": true
-          },
-          {
             "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "binary_literal",
+            "named": true
+          },
+          {
+            "type": "carg",
+            "named": true
+          },
+          {
+            "type": "decimal_literal",
+            "named": true
+          },
+          {
+            "type": "hexadecimal_literal",
+            "named": true
+          },
+          {
+            "type": "interpolated",
+            "named": true
+          },
+          {
+            "type": "macro_arg",
+            "named": true
+          },
+          {
+            "type": "narg",
+            "named": true
+          },
+          {
+            "type": "octal_literal",
             "named": true
           },
           {
@@ -1134,7 +1380,19 @@
             "named": true
           },
           {
+            "type": "pc",
+            "named": true
+          },
+          {
+            "type": "reptn",
+            "named": true
+          },
+          {
             "type": "string_literal",
+            "named": true
+          },
+          {
+            "type": "symbol",
             "named": true
           },
           {
@@ -1200,15 +1458,27 @@
         "required": true,
         "types": [
           {
-            "type": "_symbol",
-            "named": true
-          },
-          {
             "type": "address_register",
             "named": true
           },
           {
+            "type": "interpolated",
+            "named": true
+          },
+          {
+            "type": "macro_arg",
+            "named": true
+          },
+          {
             "type": "named_register",
+            "named": true
+          },
+          {
+            "type": "pc",
+            "named": true
+          },
+          {
+            "type": "symbol",
             "named": true
           }
         ]
@@ -1224,15 +1494,27 @@
         "required": true,
         "types": [
           {
-            "type": "_symbol",
-            "named": true
-          },
-          {
             "type": "address_register",
             "named": true
           },
           {
+            "type": "interpolated",
+            "named": true
+          },
+          {
+            "type": "macro_arg",
+            "named": true
+          },
+          {
             "type": "named_register",
+            "named": true
+          },
+          {
+            "type": "pc",
+            "named": true
+          },
+          {
+            "type": "symbol",
             "named": true
           }
         ]
@@ -1248,15 +1530,27 @@
         "required": true,
         "types": [
           {
-            "type": "_symbol",
-            "named": true
-          },
-          {
             "type": "address_register",
             "named": true
           },
           {
+            "type": "interpolated",
+            "named": true
+          },
+          {
+            "type": "macro_arg",
+            "named": true
+          },
+          {
             "type": "named_register",
+            "named": true
+          },
+          {
+            "type": "pc",
+            "named": true
+          },
+          {
+            "type": "symbol",
             "named": true
           }
         ]
@@ -1292,7 +1586,11 @@
         "required": false,
         "types": [
           {
-            "type": "_size",
+            "type": "macro_arg",
+            "named": true
+          },
+          {
+            "type": "size",
             "named": true
           }
         ]
@@ -1323,7 +1621,19 @@
         "required": true,
         "types": [
           {
-            "type": "_symbol",
+            "type": "interpolated",
+            "named": true
+          },
+          {
+            "type": "macro_arg",
+            "named": true
+          },
+          {
+            "type": "pc",
+            "named": true
+          },
+          {
+            "type": "symbol",
             "named": true
           }
         ]
@@ -1344,7 +1654,19 @@
         "required": true,
         "types": [
           {
-            "type": "_symbol",
+            "type": "interpolated",
+            "named": true
+          },
+          {
+            "type": "macro_arg",
+            "named": true
+          },
+          {
+            "type": "pc",
+            "named": true
+          },
+          {
+            "type": "symbol",
             "named": true
           }
         ]
@@ -1364,7 +1686,11 @@
         "required": false,
         "types": [
           {
-            "type": "_size",
+            "type": "macro_arg",
+            "named": true
+          },
+          {
+            "type": "size",
             "named": true
           }
         ]
@@ -1438,19 +1764,39 @@
         "required": true,
         "types": [
           {
-            "type": "_builtin",
-            "named": true
-          },
-          {
-            "type": "_numeric_literal",
-            "named": true
-          },
-          {
-            "type": "_symbol",
-            "named": true
-          },
-          {
             "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "binary_literal",
+            "named": true
+          },
+          {
+            "type": "carg",
+            "named": true
+          },
+          {
+            "type": "decimal_literal",
+            "named": true
+          },
+          {
+            "type": "hexadecimal_literal",
+            "named": true
+          },
+          {
+            "type": "interpolated",
+            "named": true
+          },
+          {
+            "type": "macro_arg",
+            "named": true
+          },
+          {
+            "type": "narg",
+            "named": true
+          },
+          {
+            "type": "octal_literal",
             "named": true
           },
           {
@@ -1458,7 +1804,19 @@
             "named": true
           },
           {
+            "type": "pc",
+            "named": true
+          },
+          {
+            "type": "reptn",
+            "named": true
+          },
+          {
             "type": "string_literal",
+            "named": true
+          },
+          {
+            "type": "symbol",
             "named": true
           },
           {
@@ -1472,15 +1830,27 @@
         "required": true,
         "types": [
           {
-            "type": "_symbol",
-            "named": true
-          },
-          {
             "type": "address_register",
             "named": true
           },
           {
+            "type": "interpolated",
+            "named": true
+          },
+          {
+            "type": "macro_arg",
+            "named": true
+          },
+          {
             "type": "named_register",
+            "named": true
+          },
+          {
+            "type": "pc",
+            "named": true
+          },
+          {
+            "type": "symbol",
             "named": true
           }
         ]
@@ -1506,19 +1876,39 @@
         "required": false,
         "types": [
           {
-            "type": "_builtin",
-            "named": true
-          },
-          {
-            "type": "_numeric_literal",
-            "named": true
-          },
-          {
-            "type": "_symbol",
-            "named": true
-          },
-          {
             "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "binary_literal",
+            "named": true
+          },
+          {
+            "type": "carg",
+            "named": true
+          },
+          {
+            "type": "decimal_literal",
+            "named": true
+          },
+          {
+            "type": "hexadecimal_literal",
+            "named": true
+          },
+          {
+            "type": "interpolated",
+            "named": true
+          },
+          {
+            "type": "macro_arg",
+            "named": true
+          },
+          {
+            "type": "narg",
+            "named": true
+          },
+          {
+            "type": "octal_literal",
             "named": true
           },
           {
@@ -1526,7 +1916,19 @@
             "named": true
           },
           {
+            "type": "pc",
+            "named": true
+          },
+          {
+            "type": "reptn",
+            "named": true
+          },
+          {
             "type": "string_literal",
+            "named": true
+          },
+          {
+            "type": "symbol",
             "named": true
           },
           {
@@ -1540,15 +1942,27 @@
         "required": true,
         "types": [
           {
-            "type": "_symbol",
-            "named": true
-          },
-          {
             "type": "address_register",
             "named": true
           },
           {
+            "type": "interpolated",
+            "named": true
+          },
+          {
+            "type": "macro_arg",
+            "named": true
+          },
+          {
             "type": "named_register",
+            "named": true
+          },
+          {
+            "type": "pc",
+            "named": true
+          },
+          {
+            "type": "symbol",
             "named": true
           }
         ]
@@ -1564,19 +1978,39 @@
         "required": true,
         "types": [
           {
-            "type": "_builtin",
-            "named": true
-          },
-          {
-            "type": "_numeric_literal",
-            "named": true
-          },
-          {
-            "type": "_symbol",
-            "named": true
-          },
-          {
             "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "binary_literal",
+            "named": true
+          },
+          {
+            "type": "carg",
+            "named": true
+          },
+          {
+            "type": "decimal_literal",
+            "named": true
+          },
+          {
+            "type": "hexadecimal_literal",
+            "named": true
+          },
+          {
+            "type": "interpolated",
+            "named": true
+          },
+          {
+            "type": "macro_arg",
+            "named": true
+          },
+          {
+            "type": "narg",
+            "named": true
+          },
+          {
+            "type": "octal_literal",
             "named": true
           },
           {
@@ -1584,7 +2018,19 @@
             "named": true
           },
           {
+            "type": "pc",
+            "named": true
+          },
+          {
+            "type": "reptn",
+            "named": true
+          },
+          {
             "type": "string_literal",
+            "named": true
+          },
+          {
+            "type": "symbol",
             "named": true
           },
           {
@@ -1608,7 +2054,11 @@
         "required": false,
         "types": [
           {
-            "type": "_size",
+            "type": "macro_arg",
+            "named": true
+          },
+          {
+            "type": "size",
             "named": true
           }
         ]
@@ -1638,7 +2088,111 @@
       "required": true,
       "types": [
         {
-          "type": "_operand",
+          "type": "absolute_value",
+          "named": true
+        },
+        {
+          "type": "address_register",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "binary_literal",
+          "named": true
+        },
+        {
+          "type": "carg",
+          "named": true
+        },
+        {
+          "type": "data_register",
+          "named": true
+        },
+        {
+          "type": "decimal_literal",
+          "named": true
+        },
+        {
+          "type": "float_register",
+          "named": true
+        },
+        {
+          "type": "hexadecimal_literal",
+          "named": true
+        },
+        {
+          "type": "immediate_value",
+          "named": true
+        },
+        {
+          "type": "indirect_address",
+          "named": true
+        },
+        {
+          "type": "indirect_address_postinc",
+          "named": true
+        },
+        {
+          "type": "indirect_address_predec",
+          "named": true
+        },
+        {
+          "type": "interpolated",
+          "named": true
+        },
+        {
+          "type": "macro_arg",
+          "named": true
+        },
+        {
+          "type": "named_register",
+          "named": true
+        },
+        {
+          "type": "narg",
+          "named": true
+        },
+        {
+          "type": "octal_literal",
+          "named": true
+        },
+        {
+          "type": "offset_address",
+          "named": true
+        },
+        {
+          "type": "offset_address_idx",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "pc",
+          "named": true
+        },
+        {
+          "type": "register_list",
+          "named": true
+        },
+        {
+          "type": "reptn",
+          "named": true
+        },
+        {
+          "type": "string_literal",
+          "named": true
+        },
+        {
+          "type": "symbol",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
           "named": true
         }
       ]
@@ -1699,19 +2253,39 @@
       "required": true,
       "types": [
         {
-          "type": "_builtin",
-          "named": true
-        },
-        {
-          "type": "_numeric_literal",
-          "named": true
-        },
-        {
-          "type": "_symbol",
-          "named": true
-        },
-        {
           "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "binary_literal",
+          "named": true
+        },
+        {
+          "type": "carg",
+          "named": true
+        },
+        {
+          "type": "decimal_literal",
+          "named": true
+        },
+        {
+          "type": "hexadecimal_literal",
+          "named": true
+        },
+        {
+          "type": "interpolated",
+          "named": true
+        },
+        {
+          "type": "macro_arg",
+          "named": true
+        },
+        {
+          "type": "narg",
+          "named": true
+        },
+        {
+          "type": "octal_literal",
           "named": true
         },
         {
@@ -1719,7 +2293,19 @@
           "named": true
         },
         {
+          "type": "pc",
+          "named": true
+        },
+        {
+          "type": "reptn",
+          "named": true
+        },
+        {
           "type": "string_literal",
+          "named": true
+        },
+        {
+          "type": "symbol",
           "named": true
         },
         {
@@ -1816,7 +2402,19 @@
       "required": true,
       "types": [
         {
-          "type": "_register",
+          "type": "address_register",
+          "named": true
+        },
+        {
+          "type": "data_register",
+          "named": true
+        },
+        {
+          "type": "float_register",
+          "named": true
+        },
+        {
+          "type": "named_register",
           "named": true
         },
         {
@@ -1881,7 +2479,19 @@
         "required": true,
         "types": [
           {
-            "type": "_register",
+            "type": "address_register",
+            "named": true
+          },
+          {
+            "type": "data_register",
+            "named": true
+          },
+          {
+            "type": "float_register",
+            "named": true
+          },
+          {
+            "type": "named_register",
             "named": true
           }
         ]
@@ -1891,7 +2501,19 @@
         "required": true,
         "types": [
           {
-            "type": "_register",
+            "type": "address_register",
+            "named": true
+          },
+          {
+            "type": "data_register",
+            "named": true
+          },
+          {
+            "type": "float_register",
+            "named": true
+          },
+          {
+            "type": "named_register",
             "named": true
           },
           {
@@ -1917,6 +2539,14 @@
         {
           "type": "control_mnemonic",
           "named": true
+        },
+        {
+          "type": "external_label",
+          "named": true
+        },
+        {
+          "type": "label",
+          "named": true
         }
       ]
     }
@@ -1940,19 +2570,39 @@
         "required": true,
         "types": [
           {
-            "type": "_builtin",
-            "named": true
-          },
-          {
-            "type": "_numeric_literal",
-            "named": true
-          },
-          {
-            "type": "_symbol",
-            "named": true
-          },
-          {
             "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "binary_literal",
+            "named": true
+          },
+          {
+            "type": "carg",
+            "named": true
+          },
+          {
+            "type": "decimal_literal",
+            "named": true
+          },
+          {
+            "type": "hexadecimal_literal",
+            "named": true
+          },
+          {
+            "type": "interpolated",
+            "named": true
+          },
+          {
+            "type": "macro_arg",
+            "named": true
+          },
+          {
+            "type": "narg",
+            "named": true
+          },
+          {
+            "type": "octal_literal",
             "named": true
           },
           {
@@ -1960,7 +2610,19 @@
             "named": true
           },
           {
+            "type": "pc",
+            "named": true
+          },
+          {
+            "type": "reptn",
+            "named": true
+          },
+          {
             "type": "string_literal",
+            "named": true
+          },
+          {
+            "type": "symbol",
             "named": true
           },
           {
@@ -2002,11 +2664,23 @@
         "required": false,
         "types": [
           {
-            "type": "_numeric_literal",
+            "type": "binary_literal",
+            "named": true
+          },
+          {
+            "type": "decimal_literal",
+            "named": true
+          },
+          {
+            "type": "hexadecimal_literal",
             "named": true
           },
           {
             "type": "memory_type",
+            "named": true
+          },
+          {
+            "type": "octal_literal",
             "named": true
           }
         ]
@@ -2016,11 +2690,23 @@
         "required": false,
         "types": [
           {
-            "type": "_symbol",
+            "type": "interpolated",
+            "named": true
+          },
+          {
+            "type": "macro_arg",
+            "named": true
+          },
+          {
+            "type": "pc",
             "named": true
           },
           {
             "type": "string_literal",
+            "named": true
+          },
+          {
+            "type": "symbol",
             "named": true
           }
         ]
@@ -2060,10 +2746,6 @@
       "multiple": true,
       "required": false,
       "types": [
-        {
-          "type": "_definition",
-          "named": true
-        },
         {
           "type": "comment",
           "named": true
@@ -2129,7 +2811,23 @@
           "named": true
         },
         {
+          "type": "macro_definition",
+          "named": true
+        },
+        {
+          "type": "offset_definition",
+          "named": true
+        },
+        {
           "type": "opt",
+          "named": true
+        },
+        {
+          "type": "register_definition",
+          "named": true
+        },
+        {
+          "type": "register_list_definition",
           "named": true
         },
         {
@@ -2142,6 +2840,14 @@
         },
         {
           "type": "section",
+          "named": true
+        },
+        {
+          "type": "symbol_assignment",
+          "named": true
+        },
+        {
+          "type": "symbol_definition",
           "named": true
         }
       ]
@@ -2186,19 +2892,39 @@
         "required": true,
         "types": [
           {
-            "type": "_builtin",
-            "named": true
-          },
-          {
-            "type": "_numeric_literal",
-            "named": true
-          },
-          {
-            "type": "_symbol",
-            "named": true
-          },
-          {
             "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "binary_literal",
+            "named": true
+          },
+          {
+            "type": "carg",
+            "named": true
+          },
+          {
+            "type": "decimal_literal",
+            "named": true
+          },
+          {
+            "type": "hexadecimal_literal",
+            "named": true
+          },
+          {
+            "type": "interpolated",
+            "named": true
+          },
+          {
+            "type": "macro_arg",
+            "named": true
+          },
+          {
+            "type": "narg",
+            "named": true
+          },
+          {
+            "type": "octal_literal",
             "named": true
           },
           {
@@ -2206,7 +2932,19 @@
             "named": true
           },
           {
+            "type": "pc",
+            "named": true
+          },
+          {
+            "type": "reptn",
+            "named": true
+          },
+          {
             "type": "string_literal",
+            "named": true
+          },
+          {
+            "type": "symbol",
             "named": true
           },
           {
@@ -2270,19 +3008,39 @@
         "required": true,
         "types": [
           {
-            "type": "_builtin",
-            "named": true
-          },
-          {
-            "type": "_numeric_literal",
-            "named": true
-          },
-          {
-            "type": "_symbol",
-            "named": true
-          },
-          {
             "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "binary_literal",
+            "named": true
+          },
+          {
+            "type": "carg",
+            "named": true
+          },
+          {
+            "type": "decimal_literal",
+            "named": true
+          },
+          {
+            "type": "hexadecimal_literal",
+            "named": true
+          },
+          {
+            "type": "interpolated",
+            "named": true
+          },
+          {
+            "type": "macro_arg",
+            "named": true
+          },
+          {
+            "type": "narg",
+            "named": true
+          },
+          {
+            "type": "octal_literal",
             "named": true
           },
           {
@@ -2290,7 +3048,19 @@
             "named": true
           },
           {
+            "type": "pc",
+            "named": true
+          },
+          {
+            "type": "reptn",
+            "named": true
+          },
+          {
             "type": "string_literal",
+            "named": true
+          },
+          {
+            "type": "symbol",
             "named": true
           },
           {
@@ -2320,7 +3090,19 @@
       "required": true,
       "types": [
         {
-          "type": "_symbol",
+          "type": "interpolated",
+          "named": true
+        },
+        {
+          "type": "macro_arg",
+          "named": true
+        },
+        {
+          "type": "pc",
+          "named": true
+        },
+        {
+          "type": "symbol",
           "named": true
         }
       ]
@@ -2335,19 +3117,39 @@
         "required": true,
         "types": [
           {
-            "type": "_builtin",
-            "named": true
-          },
-          {
-            "type": "_numeric_literal",
-            "named": true
-          },
-          {
-            "type": "_symbol",
-            "named": true
-          },
-          {
             "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "binary_literal",
+            "named": true
+          },
+          {
+            "type": "carg",
+            "named": true
+          },
+          {
+            "type": "decimal_literal",
+            "named": true
+          },
+          {
+            "type": "hexadecimal_literal",
+            "named": true
+          },
+          {
+            "type": "interpolated",
+            "named": true
+          },
+          {
+            "type": "macro_arg",
+            "named": true
+          },
+          {
+            "type": "narg",
+            "named": true
+          },
+          {
+            "type": "octal_literal",
             "named": true
           },
           {
@@ -2355,7 +3157,19 @@
             "named": true
           },
           {
+            "type": "pc",
+            "named": true
+          },
+          {
+            "type": "reptn",
+            "named": true
+          },
+          {
             "type": "string_literal",
+            "named": true
+          },
+          {
+            "type": "symbol",
             "named": true
           },
           {

@@ -12,6 +12,11 @@ Repeat
   move d1,d2
   ENDR; comment
 
+  REPT foo comment here
+  move d0,d1
+  move d1,d2
+  ENDR comment
+
   rept 6
   endr
 ---
@@ -47,8 +52,26 @@ Repeat
         (operand_list
           (data_register)
           (data_register))))
-    (control_mnemonic))
-  (comment)
+    (control_mnemonic)
+    (comment))
+
+  (repeat
+    (control_mnemonic)
+    (symbol)
+    (comment)
+    (element_list
+      (instruction
+        (instruction_mnemonic)
+        (operand_list
+          (data_register)
+          (data_register)))
+      (instruction
+        (instruction_mnemonic)
+        (operand_list
+          (data_register)
+          (data_register))))
+    (control_mnemonic)
+    (comment))
 
   (repeat
     (control_mnemonic)
@@ -355,3 +378,106 @@ Pellentesque id tristique ex.
 ---
 (source_file
   (end (control_mnemonic)))
+
+============================================
+Nested repeating
+============================================
+  IFND MACROS_I
+  ifnd      PROFILE
+  rts
+  endc
+  ifnd      PROFILE
+  rts
+  endc
+  ifnd      PROFILE
+  rts
+  endc
+  ifnd      PROFILE
+  rts
+  endc
+  ifnd      PROFILE
+  rts
+  endc
+  ifnd      PROFILE
+  rts
+  endc
+  ifnd      PROFILE
+  rts
+  endc
+  ifnd      PROFILE
+  rts
+  endc
+  ifnd      PROFILE
+  rts
+  endc
+  ENDC
+---
+(source_file
+  (conditional
+    (control_mnemonic)
+    (symbol)
+    (element_list
+      (conditional
+        (control_mnemonic)
+        (symbol)
+        (element_list
+          (instruction
+            (instruction_mnemonic)))
+        (control_mnemonic))
+      (conditional
+        (control_mnemonic)
+        (symbol)
+        (element_list
+          (instruction
+            (instruction_mnemonic)))
+        (control_mnemonic))
+      (conditional
+        (control_mnemonic)
+        (symbol)
+        (element_list
+          (instruction
+            (instruction_mnemonic)))
+        (control_mnemonic))
+      (conditional
+        (control_mnemonic)
+        (symbol)
+        (element_list
+          (instruction
+            (instruction_mnemonic)))
+        (control_mnemonic))
+      (conditional
+        (control_mnemonic)
+        (symbol)
+        (element_list
+          (instruction
+            (instruction_mnemonic)))
+        (control_mnemonic))
+      (conditional
+        (control_mnemonic)
+        (symbol)
+        (element_list
+          (instruction
+            (instruction_mnemonic)))
+        (control_mnemonic))
+      (conditional
+        (control_mnemonic)
+        (symbol)
+        (element_list
+          (instruction
+            (instruction_mnemonic)))
+        (control_mnemonic))
+      (conditional
+        (control_mnemonic)
+        (symbol)
+        (element_list
+          (instruction
+            (instruction_mnemonic)))
+        (control_mnemonic))
+      (conditional
+        (control_mnemonic)
+        (symbol)
+        (element_list
+          (instruction
+            (instruction_mnemonic)))
+        (control_mnemonic)))
+    (control_mnemonic)))

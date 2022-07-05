@@ -614,18 +614,6 @@ module.exports = grammar({
 
   word: ($) => $._symbol_chars,
 
-  supertypes: ($) => [
-    $._mnemonic,
-    $._operand,
-    $._size,
-    $._symbol,
-    $._definition,
-    $._effective_address,
-    $._register,
-    $._numeric_literal,
-    $._builtin,
-  ],
-
   extras: () => [], // handle whitespace manually
 
   conflicts: ($) => [
@@ -659,11 +647,13 @@ module.exports = grammar({
         $._statement,
         $._macro_call_statement,
         $._block,
-        // Label / whitespace:
-        seq($._start_line, optional($._end_line)),
-        // Comment only:
-        seq(optional($._ws), $.comment)
+        $._standalone_label,
+        $._standalone_comment
       ),
+
+    _standalone_label: ($) => seq($._start_line, optional($._end_line)),
+
+    _standalone_comment: ($) => seq(optional($._ws), $.comment),
 
     comment: ($) => choice($._comment_star, $._comment_semi),
     _comment_semi: () => /;.*/,
@@ -708,12 +698,7 @@ module.exports = grammar({
         seq(choice($._start_line, $._ws), $.macro_call, optional($._end_line))
       ),
 
-    _block: ($) =>
-      seq(
-        $._start_line,
-        choice($.repeat, $.conditional, $.rem, $.end),
-        optional($._end_line)
-      ),
+    _block: ($) => choice($.repeat, $.conditional, $.rem, $.end),
 
     label: ($) => field("name", $._symbol),
 
@@ -744,50 +729,6 @@ module.exports = grammar({
       ),
 
     // Mnemonics:
-
-    _mnemonic: ($) =>
-      choice(
-        $._instruction_mnemonic_op,
-        $._instruction_mnemonic_noop,
-
-        $._directive_mnemonic_op,
-        $._directive_mnemonic_noop,
-
-        $._data_constant_mnemonic,
-        $._data_constant_short_mnemonic,
-        $._data_space_mnemonic,
-        $._data_space_short_mnemonic,
-        $._directive_mnemonic_noop,
-        $._directive_mnemonic_op,
-        $._external_definition_mnemonic,
-        $._external_reference_mnemonic,
-        $._incbin_mnemonic,
-        $._incdir_mnemonic,
-        $._include_mnemonic,
-        $._register_definition_mnemonic,
-        $._register_list_definition_mnemonic,
-        $._rs_mnemonic,
-        $._section_mnemonic,
-        $._symbol_assignment_mnemonic,
-        $._symbol_definition_mnemonic,
-
-        $._conditional_mnemonic_exp,
-        $._conditional_mnemonic_noop,
-        $._conditional_mnemonic_comp,
-        $._conditional_mnemonic_symbol,
-        $._conditional_mnemonic_inline,
-        $._else_mnemonic,
-        $._endif_mnemonic,
-        $._macro_mnemonic,
-        $._endm_mnemonic,
-        $._rem_mnemonic,
-        $._erem_mnemonic,
-        $._rept_mnemonic,
-        $._endr_mnemonic,
-        $._end_mnemonic,
-
-        $.section_type
-      ),
 
     // instructions:
 
@@ -1041,6 +982,7 @@ module.exports = grammar({
 
     repeat: ($) =>
       seq(
+        $._start_line,
         $._rept_mnemonic,
         $._ws,
         field("count", $._expression),
@@ -1048,38 +990,14 @@ module.exports = grammar({
         $._nl,
         optional(seq(field("body", $.element_list), $._nl)),
         $._start_line,
-        $._endr_mnemonic
+        $._endr_mnemonic,
+        optional($._end_line)
       ),
 
     conditional: ($) =>
       seq(
-        choice(
-          // Expression
-          seq(
-            field("mnemonic", $._conditional_mnemonic_exp),
-            $._ws,
-            field("test", $._expression)
-          ),
-          // No operand
-          seq(field("mnemonic", $._conditional_mnemonic_noop)),
-          // Comparison
-          seq(
-            field("mnemonic", $._conditional_mnemonic_comp),
-            $._ws,
-            field("left", $._expression),
-            $._sep,
-            field("right", $._expression),
-            optional($._sep)
-          ),
-          // Symbol
-          seq(
-            field("mnemonic", $._conditional_mnemonic_symbol),
-            $._ws,
-            field("test", $._symbol)
-          )
-        ),
-        optional($._end_line),
-        $._nl,
+        $._start_line,
+        $._conditional_block_start,
         optional(
           seq(
             field("consequent", $.element_list),
@@ -1096,8 +1014,49 @@ module.exports = grammar({
             )
           )
         ),
-        $._start_line,
-        $._endif_mnemonic
+        $._conditional_block_end,
+        optional($._end_line)
+      ),
+
+    _conditional_block_start: ($) =>
+      seq(
+        choice(
+          $._conditional_expression,
+          $._conditional_noop,
+          $._conditional_comparison,
+          $._conditional_symbol
+        ),
+        optional($._end_line),
+        $._nl
+      ),
+
+    _conditional_block_end: ($) => seq($._start_line, $._endif_mnemonic),
+
+    _conditional_expression: ($) =>
+      seq(
+        field("mnemonic", $._conditional_mnemonic_exp),
+        $._ws,
+        field("test", $._expression)
+      ),
+
+    _conditional_noop: ($) =>
+      seq(field("mnemonic", $._conditional_mnemonic_noop)),
+
+    _conditional_comparison: ($) =>
+      seq(
+        field("mnemonic", $._conditional_mnemonic_comp),
+        $._ws,
+        field("left", $._expression),
+        $._sep,
+        field("right", $._expression),
+        optional($._sep)
+      ),
+
+    _conditional_symbol: ($) =>
+      seq(
+        field("mnemonic", $._conditional_mnemonic_symbol),
+        $._ws,
+        field("test", $._symbol)
       ),
 
     conditional_instruction: ($) =>
@@ -1111,14 +1070,17 @@ module.exports = grammar({
 
     rem: ($) =>
       seq(
+        $._start_line,
         $._rem_mnemonic,
         optional($._end_line),
         $._nl,
         alias(repeat(seq(repeat(/[^\n]/), $._nl)), $.comment),
-        alias(/\s+erem/, $.control_mnemonic)
+        alias(/\s+erem/, $.control_mnemonic),
+        optional($._end_line)
       ),
 
-    end: ($) => prec.right(seq($._end_mnemonic, listSep(/.*/, $._nl))),
+    end: ($) =>
+      prec.right(seq($._start_line, $._end_mnemonic, listSep(/.*/, $._nl))),
 
     macro_definition: ($) =>
       seq(
