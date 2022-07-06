@@ -20,6 +20,7 @@ const binaryOperators = [
 const PREC = {
   unary: binaryOperators.length + 1,
   address: 1,
+  definition: 2,
 };
 
 const instructions = [
@@ -617,22 +618,8 @@ module.exports = grammar({
   extras: () => [], // handle whitespace manually
 
   conflicts: ($) => [
-    [
-      $.symbol_definition,
-      $.symbol_assignment,
-      $.offset_definition,
-      $.register_definition,
-      $.offset_definition,
-      $.register_list_definition,
-      $.macro_definition,
-      $._symbol,
-    ],
-    [$._effective_address, $._register_list_item],
     [$.element_list],
-    [$.macro_call],
-
-    [$._symbol, $.interpolated],
-    [$.interpolated],
+    [$._start_line, $._label_colon, $.external_label],
   ],
 
   rules: {
@@ -645,19 +632,14 @@ module.exports = grammar({
       choice(
         $._definition,
         $._statement,
-        $._macro_call_statement,
-        $._block,
         $._standalone_label,
-        $._standalone_comment
+        $._standalone_comment,
+        $._block
       ),
 
-    _standalone_label: ($) => seq($._start_line, optional($._end_line)),
+    _standalone_label: ($) => seq($._label, optional($.comment)),
 
-    _standalone_comment: ($) => seq(optional($._ws), $.comment),
-
-    comment: ($) => choice($._comment_star, $._comment_semi),
-    _comment_semi: () => /;.*/,
-    _comment_star: () => /\*.*/,
+    _standalone_comment: ($) => prec(-1, seq(optional($._ws), $.comment)),
 
     _definition: ($) =>
       choice(
@@ -671,51 +653,53 @@ module.exports = grammar({
 
     _statement: ($) =>
       seq(
+        $._start_line,
         choice(
-          seq(
-            $._start_line,
-            choice(
-              $.instruction,
-              $.conditional_instruction,
-              $.directive,
-              $.section,
-              $.opt,
-              $.include,
-              $.include_bin,
-              $.include_dir,
-              $.external_definition,
-              $.external_reference,
-              $._data
-            )
-          )
+          $.instruction,
+          $.macro_call,
+          $.conditional_instruction,
+          $.directive,
+          $.section,
+          $.opt,
+          $.include,
+          $.include_bin,
+          $.include_dir,
+          $.external_definition,
+          $.external_reference,
+          $._data
         ),
         optional($._end_line)
       ),
 
-    _macro_call_statement: ($) =>
-      prec.dynamic(
-        -1,
-        seq(choice($._start_line, $._ws), $.macro_call, optional($._end_line))
-      ),
-
     _block: ($) => choice($.repeat, $.conditional, $.rem, $.end),
 
-    label: ($) => field("name", $._symbol),
+    _start_line: ($) => choice($._label, $._ws),
 
-    _start_line: ($) =>
-      prec.right(
-        choice(
-          seq(
-            optional($._ws),
-            alias($.label, $.external_label),
-            "::",
-            optional($._ws)
-          ), //  double colon makes label externally visible
-          seq(optional($._ws), $.label, ":", optional($._ws)), // colon required with leading whitespace
-          seq($.label, optional(":"), optional($._ws)),
-          $._ws // require at least whitespace before statement
-        )
-      ),
+    //----------------------------------------------------------------------
+    // Labels:
+    //----------------------------------------------------------------------
+
+    _label: ($) =>
+      choice(alias($._label_definition, $.label), $.external_label),
+
+    _name: ($) => field("name", $._identifier),
+
+    _label_definition: ($) =>
+      seq(choice($._label_colon, $._name), optional($._ws)),
+
+    // colon required with leading whitespace
+    _label_colon: ($) => seq(optional($._ws), $._name, ":"),
+
+    // double colon makes label externally visible
+    external_label: ($) => seq(optional($._ws), $._name, "::", optional($._ws)),
+
+    //----------------------------------------------------------------------
+    // Comments:
+    //----------------------------------------------------------------------
+
+    comment: ($) => choice($._comment_star, $._comment_semi),
+    _comment_semi: () => /;[^\n\r]*/,
+    _comment_star: () => /\*[^\n\r]*/,
 
     _end_line: ($) =>
       choice(
@@ -724,11 +708,12 @@ module.exports = grammar({
         // TODO: would be better if whitepace didn't form part of comment pattern
         // This would be handled by positional comment if I could get precedence right
         alias(/\s+\*.+/, $.comment),
-        seq($._ws, alias(/.+/, $.comment)), // Positional comment - any chars allowed after statement
-        $._ws // Allow trailing whitespace
+        seq($._ws, alias(/[^\r\n]+/, $.comment)) // Positional comment - any chars allowed after statement
       ),
 
+    //----------------------------------------------------------------------
     // Mnemonics:
+    //----------------------------------------------------------------------
 
     // instructions:
 
@@ -866,7 +851,9 @@ module.exports = grammar({
     _size: ($) => choice($.size, $.macro_arg),
     size: () => /[bwlsdxqBWLSDXQ]/,
 
+    //----------------------------------------------------------------------
     // Directives:
+    //----------------------------------------------------------------------
 
     directive: ($) =>
       prec.right(
@@ -892,7 +879,7 @@ module.exports = grammar({
         seq(
           $._section_mnemonic,
           $._ws,
-          field("name", choice($._symbol, $.string_literal)),
+          field("name", choice($._identifier, $.string_literal)),
           optional(
             seq(
               $._sep,
@@ -971,14 +958,18 @@ module.exports = grammar({
     // Macro call:
 
     macro_call: ($) =>
-      seq(
-        field("name", $._symbol),
-        optional(seq(".", field("qualifier", $._size))),
-        optional(seq($._ws, field("operands", $.operand_list))),
-        optional($._ws)
+      prec.right(
+        seq(
+          $._name,
+          optional(seq(".", field("qualifier", $._size))),
+          optional(seq($._ws, field("operands", $.operand_list))),
+          optional($._ws)
+        )
       ),
 
+    //----------------------------------------------------------------------
     // Block / multiline:
+    //----------------------------------------------------------------------
 
     repeat: ($) =>
       seq(
@@ -1004,10 +995,7 @@ module.exports = grammar({
             $._nl,
             optional(
               seq(
-                $._start_line,
-                $._else_mnemonic,
-                optional($._end_line),
-                $._nl,
+                $._conditional_block_else,
                 field("alternate", $.element_list),
                 $._nl
               )
@@ -1016,6 +1004,12 @@ module.exports = grammar({
         ),
         $._conditional_block_end,
         optional($._end_line)
+      ),
+
+    _conditional_block_else: ($) =>
+      prec.dynamic(
+        1,
+        seq($._start_line, $._else_mnemonic, optional($._end_line), $._nl)
       ),
 
     _conditional_block_start: ($) =>
@@ -1056,7 +1050,7 @@ module.exports = grammar({
       seq(
         field("mnemonic", $._conditional_mnemonic_symbol),
         $._ws,
-        field("test", $._symbol)
+        field("test", $._identifier)
       ),
 
     conditional_instruction: ($) =>
@@ -1083,98 +1077,103 @@ module.exports = grammar({
       prec.right(seq($._start_line, $._end_mnemonic, listSep(/.*/, $._nl))),
 
     macro_definition: ($) =>
-      seq(
-        choice(
-          seq(
-            field("name", $.symbol),
-            optional(":"),
-            optional($._ws),
-            $._macro_mnemonic
+      prec(
+        PREC.definition,
+        seq(
+          choice(
+            seq($._label_definition, $._macro_mnemonic),
+            seq($._ws, $._macro_mnemonic, $._ws, field("name", $.symbol))
           ),
-          seq($._ws, $._macro_mnemonic, $._ws, field("name", $.symbol))
-        ),
-        optional($._end_line),
-        $._nl,
-        optional(seq(field("body", $.element_list), $._nl)),
-        $._start_line,
-        $._endm_mnemonic,
-        optional($._end_line)
+          optional($._end_line),
+          $._nl,
+          optional(seq(field("body", $.element_list), $._nl)),
+          $._start_line,
+          $._endm_mnemonic,
+          optional($._end_line)
+        )
       ),
 
-    // Definition directives:
+    //----------------------------------------------------------------------
+    // Definitions
+    //----------------------------------------------------------------------
 
     symbol_definition: ($) =>
-      seq(
-        field("name", $.symbol),
-        optional(":"),
-        optional($._ws),
-        choice(
-          seq(
-            "=",
-            optional(seq(".", field("size", alias(/[sdxpSDXP]/, $.size)))),
-            optional($._ws)
+      prec(
+        PREC.definition,
+        seq(
+          $._label_definition,
+          choice(
+            seq(
+              "=",
+              optional(seq(".", field("size", alias(/[sdxpSDXP]/, $.size)))),
+              optional($._ws)
+            ),
+            seq(
+              field("mnemonic", $._symbol_definition_mnemonic),
+              optional(seq(".", field("size", alias(/[sdxpSDXP]/, $.size)))),
+              $._ws
+            )
           ),
-          seq(
-            field("mnemonic", $._symbol_definition_mnemonic),
-            optional(seq(".", field("size", alias(/[sdxpSDXP]/, $.size)))),
-            $._ws
-          )
-        ),
-        field("value", $._expression),
-        optional($._end_line)
+          field("value", $._expression),
+          optional($._end_line)
+        )
       ),
 
     symbol_assignment: ($) =>
-      seq(
-        field("name", $.symbol),
-        optional(":"),
-        optional($._ws),
-        $._symbol_assignment_mnemonic,
-        optional($._ws),
-        field("value", $._expression),
-        optional($._end_line)
+      prec(
+        PREC.definition,
+        seq(
+          $._label_definition,
+          $._symbol_assignment_mnemonic,
+          optional($._ws),
+          field("value", $._expression),
+          optional($._end_line)
+        )
       ),
 
     offset_definition: ($) =>
-      seq(
-        field("name", $.symbol),
-        optional(":"),
-        optional($._ws),
-        $._rs_mnemonic,
-        optional(seq(".", field("size", $._size))),
-        $._ws,
-        field("length", $._expression),
-        optional($._end_line)
+      prec(
+        PREC.definition,
+        seq(
+          $._label_definition,
+          $._rs_mnemonic,
+          optional(seq(".", field("size", $._size))),
+          $._ws,
+          field("length", $._expression),
+          optional($._end_line)
+        )
       ),
 
     register_definition: ($) =>
-      seq(
-        field("name", $.symbol),
-        optional(":"),
-        optional($._ws),
-        field("mnemonic", $._register_definition_mnemonic),
-        optional($._ws),
-        field(
-          "value",
-          choice(
-            $.data_register,
-            $.address_register,
-            $.float_register,
-            $.named_register
-          )
-        ),
-        optional($._end_line)
+      prec(
+        PREC.definition,
+        seq(
+          $._label_definition,
+          field("mnemonic", $._register_definition_mnemonic),
+          optional($._ws),
+          field(
+            "value",
+            choice(
+              $.data_register,
+              $.address_register,
+              $.float_register,
+              $.named_register
+            )
+          ),
+          optional($._end_line)
+        )
       ),
 
     register_list_definition: ($) =>
-      seq(
-        field("name", $.symbol),
-        optional(":"),
-        optional($._ws),
-        field("mnemonic", $._register_list_definition_mnemonic),
-        optional($._ws),
-        field("value", choice($.register_list)),
-        optional($._end_line)
+      prec(
+        PREC.definition,
+        seq(
+          $._label_definition,
+          field("mnemonic", $._register_list_definition_mnemonic),
+          optional($._ws),
+          field("value", choice($.register_list)),
+          optional($._end_line)
+        )
       ),
 
     external_definition: ($) =>
@@ -1191,7 +1190,9 @@ module.exports = grammar({
         field("symbols", $.symbol_list)
       ),
 
+    //----------------------------------------------------------------------
     // Effective addresses:
+    //----------------------------------------------------------------------
 
     _effective_address: ($) =>
       choice(
@@ -1230,7 +1231,7 @@ module.exports = grammar({
     _address: ($) =>
       prec(
         PREC.address,
-        choice($.address_register, $.named_register, $._symbol)
+        choice($.address_register, $.named_register, $._identifier)
       ),
 
     indirect_address: ($) => seq("(", field("register", $._address), ")"),
@@ -1283,17 +1284,19 @@ module.exports = grammar({
       seq(
         field(
           "register",
-          choice($.data_register, $.address_register, $._symbol)
+          choice($.data_register, $.address_register, $._identifier)
         ),
         optional(seq(".", field("size", $._size)))
       ),
 
+    //----------------------------------------------------------------------
     // Register lists:
+    //----------------------------------------------------------------------
 
     register_list: ($) =>
       seq($._register_list_item, repeat(seq("/", $._register_list_item))),
 
-    _register_list_item: ($) => choice($.register_range, $._register),
+    _register_list_item: ($) => prec(-1, choice($.register_range, $._register)),
 
     register_range: ($) =>
       seq(
@@ -1304,7 +1307,9 @@ module.exports = grammar({
 
     register_number: () => /[0-7]/,
 
+    //----------------------------------------------------------------------
     // Expressions:
+    //----------------------------------------------------------------------
 
     _expression: ($) =>
       choice(
@@ -1313,8 +1318,7 @@ module.exports = grammar({
         $.unary_expression,
         $.binary_expression,
         $.parenthesized_expression,
-        $._symbol,
-        $._builtin
+        $._identifier
       ),
 
     expression_list: ($) => listSep($._expression, $._sep),
@@ -1343,6 +1347,8 @@ module.exports = grammar({
           )
         )
       ),
+
+    // Literals
 
     _numeric_literal: ($) =>
       choice(
@@ -1387,6 +1393,13 @@ module.exports = grammar({
         $.macro_arg
       ),
 
+    //----------------------------------------------------------------------
+    // Identifiers
+    //----------------------------------------------------------------------
+
+    _identifier: ($) =>
+      choice($.symbol, $.interpolated, $.macro_arg, $._builtin),
+
     macro_arg: () =>
       choice(
         /\\[0-9]/,
@@ -1404,23 +1417,8 @@ module.exports = grammar({
         /\\<[^>]+>/
       ),
 
-    _builtin: ($) => choice($.reptn, $.carg, $.narg),
-    reptn: () => caseInsensitive("reptn"),
-    carg: () => caseInsensitive("carg"),
-    narg: () => caseInsensitive("narg"),
-
-    // Misc
-
-    _symbol: ($) => choice($.symbol, $.interpolated, $.macro_arg, $.pc),
-
-    _symbol_chars: () => /[a-zA-Z0-9_]+/,
-    symbol: ($) => seq(optional("."), $._symbol_chars, optional("$")),
-    symbol_list: ($) => listSep($._symbol, $._sep),
-
-    pc: () => "*",
-
     interpolated: ($) =>
-      prec(
+      prec.right(
         1,
         seq(
           choice(
@@ -1433,14 +1431,23 @@ module.exports = grammar({
         )
       ),
 
-    _macro_name: ($) => alias(prec(-1, /\.?[a-zA-Z0-9_]+/), $.symbol),
+    _builtin: ($) => choice($.reptn, $.carg, $.narg, $.pc),
+    reptn: () => caseInsensitive("reptn"),
+    carg: () => caseInsensitive("carg"),
+    narg: () => caseInsensitive("narg"),
+    pc: () => "*",
+
+    symbol_list: ($) => listSep($.symbol, $._sep),
+    symbol: ($) => seq(optional("."), $._symbol_chars, optional("$")),
+    _symbol_chars: () => /[a-zA-Z0-9_]+/,
+
+    //----------------------------------------------------------------------
+    // Misc:
+    //----------------------------------------------------------------------
 
     _sep: () => /\s*,\s*/,
-
-    // Whitespace:
-
     _ws: () => /[ \t]+/,
-    _nl: () => /(\r\n|\n|\r)+/,
+    _nl: () => /([ \t]*(\r\n|\n|\r))+/,
   },
 });
 

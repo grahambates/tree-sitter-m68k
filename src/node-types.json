@@ -1072,6 +1072,10 @@
         "required": true,
         "types": [
           {
+            "type": "carg",
+            "named": true
+          },
+          {
             "type": "interpolated",
             "named": true
           },
@@ -1080,7 +1084,15 @@
             "named": true
           },
           {
+            "type": "narg",
+            "named": true
+          },
+          {
             "type": "pc",
+            "named": true
+          },
+          {
+            "type": "reptn",
             "named": true
           },
           {
@@ -1130,6 +1142,10 @@
             "named": true
           },
           {
+            "type": "carg",
+            "named": true
+          },
+          {
             "type": "data_register",
             "named": true
           },
@@ -1142,7 +1158,15 @@
             "named": true
           },
           {
+            "type": "narg",
+            "named": true
+          },
+          {
             "type": "pc",
+            "named": true
+          },
+          {
+            "type": "reptn",
             "named": true
           },
           {
@@ -1462,6 +1486,10 @@
             "named": true
           },
           {
+            "type": "carg",
+            "named": true
+          },
+          {
             "type": "interpolated",
             "named": true
           },
@@ -1474,7 +1502,15 @@
             "named": true
           },
           {
+            "type": "narg",
+            "named": true
+          },
+          {
             "type": "pc",
+            "named": true
+          },
+          {
+            "type": "reptn",
             "named": true
           },
           {
@@ -1498,6 +1534,10 @@
             "named": true
           },
           {
+            "type": "carg",
+            "named": true
+          },
+          {
             "type": "interpolated",
             "named": true
           },
@@ -1510,7 +1550,15 @@
             "named": true
           },
           {
+            "type": "narg",
+            "named": true
+          },
+          {
             "type": "pc",
+            "named": true
+          },
+          {
+            "type": "reptn",
             "named": true
           },
           {
@@ -1534,6 +1582,10 @@
             "named": true
           },
           {
+            "type": "carg",
+            "named": true
+          },
+          {
             "type": "interpolated",
             "named": true
           },
@@ -1546,7 +1598,15 @@
             "named": true
           },
           {
+            "type": "narg",
+            "named": true
+          },
+          {
             "type": "pc",
+            "named": true
+          },
+          {
+            "type": "reptn",
             "named": true
           },
           {
@@ -1621,6 +1681,10 @@
         "required": true,
         "types": [
           {
+            "type": "carg",
+            "named": true
+          },
+          {
             "type": "interpolated",
             "named": true
           },
@@ -1629,7 +1693,15 @@
             "named": true
           },
           {
+            "type": "narg",
+            "named": true
+          },
+          {
             "type": "pc",
+            "named": true
+          },
+          {
+            "type": "reptn",
             "named": true
           },
           {
@@ -1654,6 +1726,10 @@
         "required": true,
         "types": [
           {
+            "type": "carg",
+            "named": true
+          },
+          {
             "type": "interpolated",
             "named": true
           },
@@ -1662,7 +1738,15 @@
             "named": true
           },
           {
+            "type": "narg",
+            "named": true
+          },
+          {
             "type": "pc",
+            "named": true
+          },
+          {
+            "type": "reptn",
             "named": true
           },
           {
@@ -1715,6 +1799,30 @@
         "multiple": false,
         "required": true,
         "types": [
+          {
+            "type": "carg",
+            "named": true
+          },
+          {
+            "type": "interpolated",
+            "named": true
+          },
+          {
+            "type": "macro_arg",
+            "named": true
+          },
+          {
+            "type": "narg",
+            "named": true
+          },
+          {
+            "type": "pc",
+            "named": true
+          },
+          {
+            "type": "reptn",
+            "named": true
+          },
           {
             "type": "symbol",
             "named": true
@@ -1834,6 +1942,10 @@
             "named": true
           },
           {
+            "type": "carg",
+            "named": true
+          },
+          {
             "type": "interpolated",
             "named": true
           },
@@ -1846,7 +1958,15 @@
             "named": true
           },
           {
+            "type": "narg",
+            "named": true
+          },
+          {
             "type": "pc",
+            "named": true
+          },
+          {
+            "type": "reptn",
             "named": true
           },
           {
@@ -1946,6 +2066,10 @@
             "named": true
           },
           {
+            "type": "carg",
+            "named": true
+          },
+          {
             "type": "interpolated",
             "named": true
           },
@@ -1958,7 +2082,15 @@
             "named": true
           },
           {
+            "type": "narg",
+            "named": true
+          },
+          {
             "type": "pc",
+            "named": true
+          },
+          {
+            "type": "reptn",
             "named": true
           },
           {
@@ -2043,6 +2175,30 @@
         "multiple": false,
         "required": true,
         "types": [
+          {
+            "type": "carg",
+            "named": true
+          },
+          {
+            "type": "interpolated",
+            "named": true
+          },
+          {
+            "type": "macro_arg",
+            "named": true
+          },
+          {
+            "type": "narg",
+            "named": true
+          },
+          {
+            "type": "pc",
+            "named": true
+          },
+          {
+            "type": "reptn",
+            "named": true
+          },
           {
             "type": "symbol",
             "named": true
@@ -2354,6 +2510,30 @@
         "required": true,
         "types": [
           {
+            "type": "carg",
+            "named": true
+          },
+          {
+            "type": "interpolated",
+            "named": true
+          },
+          {
+            "type": "macro_arg",
+            "named": true
+          },
+          {
+            "type": "narg",
+            "named": true
+          },
+          {
+            "type": "pc",
+            "named": true
+          },
+          {
+            "type": "reptn",
+            "named": true
+          },
+          {
             "type": "symbol",
             "named": true
           }
@@ -2442,6 +2622,30 @@
         "multiple": false,
         "required": true,
         "types": [
+          {
+            "type": "carg",
+            "named": true
+          },
+          {
+            "type": "interpolated",
+            "named": true
+          },
+          {
+            "type": "macro_arg",
+            "named": true
+          },
+          {
+            "type": "narg",
+            "named": true
+          },
+          {
+            "type": "pc",
+            "named": true
+          },
+          {
+            "type": "reptn",
+            "named": true
+          },
           {
             "type": "symbol",
             "named": true
@@ -2690,6 +2894,10 @@
         "required": false,
         "types": [
           {
+            "type": "carg",
+            "named": true
+          },
+          {
             "type": "interpolated",
             "named": true
           },
@@ -2698,7 +2906,15 @@
             "named": true
           },
           {
+            "type": "narg",
+            "named": true
+          },
+          {
             "type": "pc",
+            "named": true
+          },
+          {
+            "type": "reptn",
             "named": true
           },
           {
@@ -2882,6 +3098,30 @@
         "required": true,
         "types": [
           {
+            "type": "carg",
+            "named": true
+          },
+          {
+            "type": "interpolated",
+            "named": true
+          },
+          {
+            "type": "macro_arg",
+            "named": true
+          },
+          {
+            "type": "narg",
+            "named": true
+          },
+          {
+            "type": "pc",
+            "named": true
+          },
+          {
+            "type": "reptn",
+            "named": true
+          },
+          {
             "type": "symbol",
             "named": true
           }
@@ -2988,6 +3228,30 @@
         "required": true,
         "types": [
           {
+            "type": "carg",
+            "named": true
+          },
+          {
+            "type": "interpolated",
+            "named": true
+          },
+          {
+            "type": "macro_arg",
+            "named": true
+          },
+          {
+            "type": "narg",
+            "named": true
+          },
+          {
+            "type": "pc",
+            "named": true
+          },
+          {
+            "type": "reptn",
+            "named": true
+          },
+          {
             "type": "symbol",
             "named": true
           }
@@ -3089,18 +3353,6 @@
       "multiple": true,
       "required": true,
       "types": [
-        {
-          "type": "interpolated",
-          "named": true
-        },
-        {
-          "type": "macro_arg",
-          "named": true
-        },
-        {
-          "type": "pc",
-          "named": true
-        },
         {
           "type": "symbol",
           "named": true

@@ -149,7 +149,10 @@ woo:  MyMacro ; example
   (label
     (symbol))
   (macro_call
-    (symbol))
+    (symbol)
+    (operand_list
+      (data_register)
+      (data_register)))
   (comment)
   (label
     (symbol))
