@@ -1438,7 +1438,10 @@ module.exports = grammar({
     pc: () => "*",
 
     symbol_list: ($) => listSep($.symbol, $._sep),
-    symbol: ($) => seq(optional("."), $._symbol_chars, optional("$")),
+    symbol: ($) =>
+      prec.right(
+        seq(repeat1(seq(optional("."), $._symbol_chars)), optional("$"))
+      ),
     _symbol_chars: () => /[a-zA-Z0-9_]+/,
 
     //----------------------------------------------------------------------

@@ -55,7 +55,6 @@ Immediate value
 Absolute value
 ============================================
 	move 4.w,d0
-	move foo.w,d0
 	move (foo).w,d0
 ---
 (source_file
@@ -63,11 +62,6 @@ Absolute value
     mnemonic: (instruction_mnemonic)
     operands: (operand_list
       (absolute_value value: (decimal_literal) size: (size))
-      (data_register)))
-  (instruction
-    mnemonic: (instruction_mnemonic)
-    operands: (operand_list
-      (absolute_value value: (symbol) size: (size))
       (data_register)))
   (instruction
     mnemonic: (instruction_mnemonic)
