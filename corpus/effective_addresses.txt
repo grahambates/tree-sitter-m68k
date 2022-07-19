@@ -152,6 +152,8 @@ Address offset
 ============================================
 	move 123(a0),d0
 	move (123,a0),d0
+	move 123(foo),d0
+	move (123,foo),d0
 	move foo(a0),d0
 	move foo+bar(a0),d0
 ---
@@ -165,6 +167,16 @@ Address offset
     mnemonic: (instruction_mnemonic)
     operands: (operand_list
       (offset_address offset: (decimal_literal) register: (address_register))
+      (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (offset_address offset: (decimal_literal) register: (symbol))
+      (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (offset_address offset: (decimal_literal) register: (symbol))
       (data_register)))
   (instruction
     mnemonic: (instruction_mnemonic)
@@ -189,6 +201,8 @@ Address offset idx
 	move (a0,d0),d0
 	move (a0,a1),d0
 	move (a0,d0.w),d0
+	move (foo,d0),d0
+	move (foo,bar),d0
 	move 123(a0,d0.w),d0
 	move (123,a0,d0.w),d0
 	move foo(a0,d0.w),d0
@@ -216,6 +230,20 @@ Address offset idx
         register: (address_register)
         idx: (idx register: (data_register) size: (size)))
        (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (offset_address_idx
+        register: (symbol)
+        idx: (idx register: (data_register)))
+      (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (offset_address_idx
+        register: (symbol)
+        idx: (idx register: (symbol)))
+      (data_register)))
   (instruction
     mnemonic: (instruction_mnemonic)
     operands: (operand_list
