@@ -1263,7 +1263,7 @@ module.exports = grammar({
       choice(
         seq(
           "(",
-          field("offset", $._expression),
+          field("offset", choice($._expression, $._address)), // Avoid incorrectly assigning symbol to register per next seq
           ",",
           field("register", $._address),
           ",",
@@ -1284,7 +1284,12 @@ module.exports = grammar({
       seq(
         field(
           "register",
-          choice($.data_register, $.address_register, $._identifier)
+          choice(
+            $.data_register,
+            $.address_register,
+            $.named_register,
+            $._identifier
+          )
         ),
         optional(seq(".", field("size", $._size)))
       ),

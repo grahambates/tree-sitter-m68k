@@ -206,6 +206,7 @@ Address offset idx
 	move 123(a0,d0.w),d0
 	move (123,a0,d0.w),d0
 	move foo(a0,d0.w),d0
+	move (foo,a0,d0.w),d0
   move -(32+2)(a0),d0
 ---
 (source_file
@@ -259,6 +260,16 @@ Address offset idx
     operands: (operand_list
       (offset_address_idx
         offset: (decimal_literal)
+        register: (address_register)
+        idx: (idx
+          register: (data_register)
+          size: (size)))
+      (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (offset_address_idx
+        offset: (symbol)
         register: (address_register)
         idx: (idx
           register: (data_register)

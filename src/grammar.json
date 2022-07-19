@@ -5604,8 +5604,17 @@
               "type": "FIELD",
               "name": "offset",
               "content": {
-                "type": "SYMBOL",
-                "name": "_expression"
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "_expression"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "_address"
+                  }
+                ]
               }
             },
             {
@@ -5705,6 +5714,10 @@
               {
                 "type": "SYMBOL",
                 "name": "address_register"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "named_register"
               },
               {
                 "type": "SYMBOL",
