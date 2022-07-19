@@ -1328,7 +1328,8 @@ module.exports = grammar({
 
     expression_list: ($) => listSep($._expression, $._sep),
 
-    parenthesized_expression: ($) => seq("(", $._expression, ")"),
+    parenthesized_expression: ($) =>
+      choice(seq("(", $._expression, ")"), seq("[", $._expression, "]")),
 
     unary_expression: ($) =>
       prec(
