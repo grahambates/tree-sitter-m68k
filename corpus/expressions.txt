@@ -26,8 +26,12 @@ Symbols
 ============================================
 	move foo,d0
 	move .foo,d0
+	move .68k,d0
 ---
 (source_file
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list (symbol) (data_register)))
   (instruction
     mnemonic: (instruction_mnemonic)
     operands: (operand_list (symbol) (data_register)))

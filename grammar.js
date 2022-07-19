@@ -1366,7 +1366,8 @@ module.exports = grammar({
     hexadecimal_literal: () => /\$[0-9A-Fa-z]+/,
     binary_literal: () => /%[01]+/,
     octal_literal: () => /@[0-7]+/,
-    decimal_literal: () => /\d*\.?\d+/,
+    decimal_literal: () =>
+      prec.left(choice(/\d+/, seq(optional(/\d+/), ".", /\d+/))),
 
     string_literal: ($) =>
       choice(

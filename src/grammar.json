@@ -6469,8 +6469,42 @@
       "value": "@[0-7]+"
     },
     "decimal_literal": {
-      "type": "PATTERN",
-      "value": "\\d*\\.?\\d+"
+      "type": "PREC_LEFT",
+      "value": 0,
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "PATTERN",
+            "value": "\\d+"
+          },
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "PATTERN",
+                    "value": "\\d+"
+                  },
+                  {
+                    "type": "BLANK"
+                  }
+                ]
+              },
+              {
+                "type": "STRING",
+                "value": "."
+              },
+              {
+                "type": "PATTERN",
+                "value": "\\d+"
+              }
+            ]
+          }
+        ]
+      }
     },
     "string_literal": {
       "type": "CHOICE",
