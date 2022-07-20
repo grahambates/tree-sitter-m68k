@@ -5436,8 +5436,8 @@
       "value": "[fF][pP][0-7]"
     },
     "_address": {
-      "type": "PREC",
-      "value": 1,
+      "type": "FIELD",
+      "name": "register",
       "content": {
         "type": "CHOICE",
         "members": [
@@ -5457,25 +5457,25 @@
       }
     },
     "indirect_address": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "("
-        },
-        {
-          "type": "FIELD",
-          "name": "register",
-          "content": {
+      "type": "PREC",
+      "value": 2,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "("
+          },
+          {
             "type": "SYMBOL",
             "name": "_address"
+          },
+          {
+            "type": "STRING",
+            "value": ")"
           }
-        },
-        {
-          "type": "STRING",
-          "value": ")"
-        }
-      ]
+        ]
+      }
     },
     "indirect_address_postinc": {
       "type": "SEQ",
@@ -5485,12 +5485,8 @@
           "value": "("
         },
         {
-          "type": "FIELD",
-          "name": "register",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_address"
-          }
+          "type": "SYMBOL",
+          "name": "_address"
         },
         {
           "type": "STRING",
@@ -5499,29 +5495,29 @@
       ]
     },
     "indirect_address_predec": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "-"
-        },
-        {
-          "type": "STRING",
-          "value": "("
-        },
-        {
-          "type": "FIELD",
-          "name": "register",
-          "content": {
+      "type": "PREC",
+      "value": 2,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "-"
+          },
+          {
+            "type": "STRING",
+            "value": "("
+          },
+          {
             "type": "SYMBOL",
             "name": "_address"
+          },
+          {
+            "type": "STRING",
+            "value": ")"
           }
-        },
-        {
-          "type": "STRING",
-          "value": ")"
-        }
-      ]
+        ]
+      }
     },
     "offset_address": {
       "type": "CHOICE",
@@ -5546,12 +5542,8 @@
               "value": ","
             },
             {
-              "type": "FIELD",
-              "name": "register",
-              "content": {
-                "type": "SYMBOL",
-                "name": "_address"
-              }
+              "type": "SYMBOL",
+              "name": "_address"
             },
             {
               "type": "STRING",
@@ -5575,12 +5567,8 @@
               "value": "("
             },
             {
-              "type": "FIELD",
-              "name": "register",
-              "content": {
-                "type": "SYMBOL",
-                "name": "_address"
-              }
+              "type": "SYMBOL",
+              "name": "_address"
             },
             {
               "type": "STRING",
@@ -5591,112 +5579,108 @@
       ]
     },
     "offset_address_idx": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "("
-            },
-            {
-              "type": "FIELD",
-              "name": "offset",
-              "content": {
+      "type": "PREC",
+      "value": 1,
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "("
+              },
+              {
+                "type": "FIELD",
+                "name": "offset",
+                "content": {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "_expression"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "_identifier"
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "STRING",
+                "value": ","
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_address"
+              },
+              {
+                "type": "STRING",
+                "value": ","
+              },
+              {
+                "type": "FIELD",
+                "name": "idx",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "idx"
+                }
+              },
+              {
+                "type": "STRING",
+                "value": ")"
+              }
+            ]
+          },
+          {
+            "type": "SEQ",
+            "members": [
+              {
                 "type": "CHOICE",
                 "members": [
                   {
-                    "type": "SYMBOL",
-                    "name": "_expression"
+                    "type": "FIELD",
+                    "name": "offset",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "_expression"
+                    }
                   },
                   {
-                    "type": "SYMBOL",
-                    "name": "_address"
+                    "type": "BLANK"
                   }
                 ]
-              }
-            },
-            {
-              "type": "STRING",
-              "value": ","
-            },
-            {
-              "type": "FIELD",
-              "name": "register",
-              "content": {
+              },
+              {
+                "type": "STRING",
+                "value": "("
+              },
+              {
                 "type": "SYMBOL",
                 "name": "_address"
-              }
-            },
-            {
-              "type": "STRING",
-              "value": ","
-            },
-            {
-              "type": "FIELD",
-              "name": "idx",
-              "content": {
-                "type": "SYMBOL",
-                "name": "idx"
-              }
-            },
-            {
-              "type": "STRING",
-              "value": ")"
-            }
-          ]
-        },
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "FIELD",
-                  "name": "offset",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "_expression"
-                  }
-                },
-                {
-                  "type": "BLANK"
+              },
+              {
+                "type": "STRING",
+                "value": ","
+              },
+              {
+                "type": "FIELD",
+                "name": "idx",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "idx"
                 }
-              ]
-            },
-            {
-              "type": "STRING",
-              "value": "("
-            },
-            {
-              "type": "FIELD",
-              "name": "register",
-              "content": {
-                "type": "SYMBOL",
-                "name": "_address"
+              },
+              {
+                "type": "STRING",
+                "value": ")"
               }
-            },
-            {
-              "type": "STRING",
-              "value": ","
-            },
-            {
-              "type": "FIELD",
-              "name": "idx",
-              "content": {
-                "type": "SYMBOL",
-                "name": "idx"
-              }
-            },
-            {
-              "type": "STRING",
-              "value": ")"
-            }
-          ]
-        }
-      ]
+            ]
+          }
+        ]
+      }
     },
     "idx": {
       "type": "SEQ",
@@ -6948,7 +6932,9 @@
   ],
   "precedences": [],
   "externals": [],
-  "inline": [],
+  "inline": [
+    "_address"
+  ],
   "supertypes": []
 }
 

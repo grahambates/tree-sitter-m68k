@@ -622,6 +622,8 @@ module.exports = grammar({
     [$._start_line, $._label_colon, $.external_label],
   ],
 
+  inline: ($) => [$._address],
+
   rules: {
     source_file: ($) =>
       seq(optional($._nl), prec.left(listSep($._element, $._nl))),
@@ -1229,54 +1231,44 @@ module.exports = grammar({
     float_register: () => /[fF][pP][0-7]/,
 
     _address: ($) =>
-      prec(
-        PREC.address,
+      field(
+        "register",
         choice($.address_register, $.named_register, $._identifier)
       ),
 
-    indirect_address: ($) => seq("(", field("register", $._address), ")"),
+    indirect_address: ($) => prec(2, seq("(", $._address, ")")),
 
-    indirect_address_postinc: ($) =>
-      seq("(", field("register", $._address), ")+"),
+    indirect_address_postinc: ($) => seq("(", $._address, ")+"),
 
-    indirect_address_predec: ($) =>
-      seq("-", "(", field("register", $._address), ")"),
+    indirect_address_predec: ($) => prec(2, seq("-", "(", $._address, ")")),
 
     offset_address: ($) =>
       choice(
-        seq(
-          "(",
-          field("offset", $._expression),
-          ",",
-          field("register", $._address),
-          ")"
-        ),
-        seq(
-          field("offset", $._expression),
-          "(",
-          field("register", $._address),
-          ")"
-        )
+        seq("(", field("offset", $._expression), ",", $._address, ")"),
+        seq(field("offset", $._expression), "(", $._address, ")")
       ),
 
     offset_address_idx: ($) =>
-      choice(
-        seq(
-          "(",
-          field("offset", choice($._expression, $._address)), // Avoid incorrectly assigning symbol to register per next seq
-          ",",
-          field("register", $._address),
-          ",",
-          field("idx", $.idx),
-          ")"
-        ),
-        seq(
-          optional(field("offset", $._expression)),
-          "(",
-          field("register", $._address),
-          ",",
-          field("idx", $.idx),
-          ")"
+      prec(
+        1,
+        choice(
+          seq(
+            "(",
+            field("offset", choice($._expression, $._identifier)),
+            ",",
+            $._address,
+            ",",
+            field("idx", $.idx),
+            ")"
+          ),
+          seq(
+            optional(field("offset", $._expression)),
+            "(",
+            $._address,
+            ",",
+            field("idx", $.idx),
+            ")"
+          )
         )
       ),
 

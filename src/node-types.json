@@ -2005,10 +2005,6 @@
         "required": false,
         "types": [
           {
-            "type": "address_register",
-            "named": true
-          },
-          {
             "type": "binary_expression",
             "named": true
           },
@@ -2034,10 +2030,6 @@
           },
           {
             "type": "macro_arg",
-            "named": true
-          },
-          {
-            "type": "named_register",
             "named": true
           },
           {
