@@ -208,6 +208,9 @@ Address offset idx
 	move foo(a0,d0.w),d0
 	move (foo,a0,d0.w),d0
   move -(32+2)(a0),d0
+	move (a0,d0*2),d0
+	move (a0,d0.w*2),d0
+	move (pc,d0.w*foo),d0
 ---
 (source_file
   (instruction
@@ -298,6 +301,27 @@ Address offset idx
               right: (decimal_literal))))
         register: (address_register))
         (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (offset_address_idx
+        register: (address_register)
+        idx: (idx register: (data_register) scale: (decimal_literal)))
+      (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (offset_address_idx
+        register: (address_register)
+        idx: (idx register: (data_register) size: (size) scale: (decimal_literal)))
+      (data_register)))
+  (instruction
+    mnemonic: (instruction_mnemonic)
+    operands: (operand_list
+      (offset_address_idx
+        register: (named_register)
+        idx: (idx register: (data_register) size: (size) scale: (symbol)))
+      (data_register)))
 )
 
 ============================================

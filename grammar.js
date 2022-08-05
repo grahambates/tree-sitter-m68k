@@ -1283,7 +1283,8 @@ module.exports = grammar({
             $._identifier
           )
         ),
-        optional(seq(".", field("size", $._size)))
+        optional(seq(".", field("size", $._size))),
+        optional(seq("*", field("scale", $._expression)))
       ),
 
     //----------------------------------------------------------------------
