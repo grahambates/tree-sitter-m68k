@@ -123,6 +123,9 @@ Macro calls
 ============================================
   MyMacro
   MyMacro d0,d1 
+  MyMacro.b d0,d1 
+  MyMacro."1" d0,d1 
+  MyMacro.\1 d0,d1 
   %getdate 3
 foo:  MyMacro d0,d1
 bar:  MyMacro
@@ -134,6 +137,24 @@ woo:  MyMacro ; example
 
   (macro_call
     (symbol)
+    (operand_list
+      (data_register)
+      (data_register)))
+  (macro_call
+    (symbol)
+    (symbol)
+    (operand_list
+      (data_register)
+      (data_register)))
+  (macro_call
+    (symbol)
+    (string_literal)
+    (operand_list
+      (data_register)
+      (data_register)))
+  (macro_call
+    (symbol)
+    (macro_arg)
     (operand_list
       (data_register)
       (data_register)))

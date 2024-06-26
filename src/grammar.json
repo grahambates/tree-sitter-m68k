@@ -4120,8 +4120,12 @@
         "type": "SEQ",
         "members": [
           {
-            "type": "SYMBOL",
-            "name": "_name"
+            "type": "FIELD",
+            "name": "name",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_identifier_nodot"
+            }
           },
           {
             "type": "CHOICE",
@@ -4138,7 +4142,7 @@
                     "name": "qualifier",
                     "content": {
                       "type": "SYMBOL",
-                      "name": "_size"
+                      "name": "_expression"
                     }
                   }
                 ]
@@ -6658,6 +6662,32 @@
         }
       ]
     },
+    "_identifier_nodot": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "symbol_no_dot"
+          },
+          "named": true,
+          "value": "symbol"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "interpolated"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "macro_arg"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_builtin"
+        }
+      ]
+    },
     "macro_arg": {
       "type": "CHOICE",
       "members": [
@@ -6881,6 +6911,43 @@
           ]
         }
       ]
+    },
+    "symbol_no_dot": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "."
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_symbol_chars"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "$"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        ]
+      }
     },
     "symbol": {
       "type": "PREC_RIGHT",

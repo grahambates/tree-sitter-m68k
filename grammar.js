@@ -962,8 +962,8 @@ module.exports = grammar({
     macro_call: ($) =>
       prec.right(
         seq(
-          $._name,
-          optional(seq(".", field("qualifier", $._size))),
+          field("name", $._identifier_nodot),
+          optional(seq(".", field("qualifier", $._expression))),
           optional(seq($._ws, field("operands", $.operand_list))),
           optional($._ws)
         )
@@ -1400,6 +1400,9 @@ module.exports = grammar({
     _identifier: ($) =>
       choice($.symbol, $.interpolated, $.macro_arg, $._builtin),
 
+    _identifier_nodot: ($) =>
+      choice(alias($.symbol_no_dot, $.symbol), $.interpolated, $.macro_arg, $._builtin),
+
     macro_arg: () =>
       choice(
         /\\[0-9]/,
@@ -1438,6 +1441,10 @@ module.exports = grammar({
     pc: () => "*",
 
     symbol_list: ($) => listSep($.symbol, $._sep),
+    symbol_no_dot: ($) =>
+      prec.right(
+        seq(optional("."), $._symbol_chars, optional("$"))
+      ),
     symbol: ($) =>
       prec.right(
         seq(repeat1(seq(optional("."), $._symbol_chars)), optional("$"))

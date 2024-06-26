@@ -1845,11 +1845,63 @@
         "required": false,
         "types": [
           {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "binary_literal",
+            "named": true
+          },
+          {
+            "type": "carg",
+            "named": true
+          },
+          {
+            "type": "decimal_literal",
+            "named": true
+          },
+          {
+            "type": "hexadecimal_literal",
+            "named": true
+          },
+          {
+            "type": "interpolated",
+            "named": true
+          },
+          {
             "type": "macro_arg",
             "named": true
           },
           {
-            "type": "size",
+            "type": "narg",
+            "named": true
+          },
+          {
+            "type": "octal_literal",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "pc",
+            "named": true
+          },
+          {
+            "type": "reptn",
+            "named": true
+          },
+          {
+            "type": "string_literal",
+            "named": true
+          },
+          {
+            "type": "symbol",
+            "named": true
+          },
+          {
+            "type": "unary_expression",
             "named": true
           }
         ]
