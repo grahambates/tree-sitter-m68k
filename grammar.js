@@ -1,7 +1,5 @@
 // TODO:
-// < > brackets on macro parameters
 // C Style macros
-// Square brackets
 // Extern keyword
 
 const binaryOperators = [
@@ -846,9 +844,28 @@ module.exports = grammar({
       ),
 
     operand_list: ($) => listSep($._operand, $._sep),
-
     _operand: ($) =>
       choice($._effective_address, $.register_list, $._expression),
+
+    argument_list: ($) => listSep(
+      choice($.quoted_arg, $._operand),
+      $._sep),
+
+    _argument: ($) =>
+      prec(1,
+        choice(
+          $._effective_address,
+          $.register_list,
+          $._numeric_literal,
+          $.string_literal,
+          $.unary_expression,
+          $.binary_expression,
+          $.parenthesized_expression,
+          $._identifier),
+      ),
+
+    quoted_arg: ($) =>
+      seq('<', listSep($._argument, $._sep), '>'),
 
     _size: ($) => choice($.size, $.macro_arg),
     size: () => /[bwlsdxqBWLSDXQ]/,
@@ -964,7 +981,7 @@ module.exports = grammar({
         seq(
           field("name", $._identifier_nodot),
           optional(seq(".", field("qualifier", $._expression))),
-          optional(seq($._ws, field("operands", $.operand_list))),
+          optional(seq($._ws, field("arguments", $.argument_list))),
           optional($._ws)
         )
       ),

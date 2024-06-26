@@ -128,14 +128,14 @@ Macro symbols in mnemonic
   (macro_call
     (macro_arg)
     (symbol)
-    (operand_list
+    (argument_list
       (data_register)
       (data_register)))
   (macro_call
     (interpolated
       (macro_arg))
     (symbol)
-    (operand_list
+    (argument_list
       (data_register)
       (data_register)))
 )

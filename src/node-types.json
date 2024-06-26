@@ -86,6 +86,129 @@
     }
   },
   {
+    "type": "argument_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "absolute_value",
+          "named": true
+        },
+        {
+          "type": "address_register",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "binary_literal",
+          "named": true
+        },
+        {
+          "type": "carg",
+          "named": true
+        },
+        {
+          "type": "data_register",
+          "named": true
+        },
+        {
+          "type": "decimal_literal",
+          "named": true
+        },
+        {
+          "type": "float_register",
+          "named": true
+        },
+        {
+          "type": "hexadecimal_literal",
+          "named": true
+        },
+        {
+          "type": "immediate_value",
+          "named": true
+        },
+        {
+          "type": "indirect_address",
+          "named": true
+        },
+        {
+          "type": "indirect_address_postinc",
+          "named": true
+        },
+        {
+          "type": "indirect_address_predec",
+          "named": true
+        },
+        {
+          "type": "interpolated",
+          "named": true
+        },
+        {
+          "type": "macro_arg",
+          "named": true
+        },
+        {
+          "type": "named_register",
+          "named": true
+        },
+        {
+          "type": "narg",
+          "named": true
+        },
+        {
+          "type": "octal_literal",
+          "named": true
+        },
+        {
+          "type": "offset_address",
+          "named": true
+        },
+        {
+          "type": "offset_address_idx",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "pc",
+          "named": true
+        },
+        {
+          "type": "quoted_arg",
+          "named": true
+        },
+        {
+          "type": "register_list",
+          "named": true
+        },
+        {
+          "type": "reptn",
+          "named": true
+        },
+        {
+          "type": "string_literal",
+          "named": true
+        },
+        {
+          "type": "symbol",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "binary_expression",
     "named": true,
     "fields": {
@@ -1796,6 +1919,16 @@
     "type": "macro_call",
     "named": true,
     "fields": {
+      "arguments": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "argument_list",
+            "named": true
+          }
+        ]
+      },
       "name": {
         "multiple": false,
         "required": true,
@@ -1826,16 +1959,6 @@
           },
           {
             "type": "symbol",
-            "named": true
-          }
-        ]
-      },
-      "operands": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "operand_list",
             "named": true
           }
         ]
@@ -2617,6 +2740,125 @@
     "type": "pc",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "quoted_arg",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "absolute_value",
+          "named": true
+        },
+        {
+          "type": "address_register",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "binary_literal",
+          "named": true
+        },
+        {
+          "type": "carg",
+          "named": true
+        },
+        {
+          "type": "data_register",
+          "named": true
+        },
+        {
+          "type": "decimal_literal",
+          "named": true
+        },
+        {
+          "type": "float_register",
+          "named": true
+        },
+        {
+          "type": "hexadecimal_literal",
+          "named": true
+        },
+        {
+          "type": "immediate_value",
+          "named": true
+        },
+        {
+          "type": "indirect_address",
+          "named": true
+        },
+        {
+          "type": "indirect_address_postinc",
+          "named": true
+        },
+        {
+          "type": "indirect_address_predec",
+          "named": true
+        },
+        {
+          "type": "interpolated",
+          "named": true
+        },
+        {
+          "type": "macro_arg",
+          "named": true
+        },
+        {
+          "type": "named_register",
+          "named": true
+        },
+        {
+          "type": "narg",
+          "named": true
+        },
+        {
+          "type": "octal_literal",
+          "named": true
+        },
+        {
+          "type": "offset_address",
+          "named": true
+        },
+        {
+          "type": "offset_address_idx",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "pc",
+          "named": true
+        },
+        {
+          "type": "register_list",
+          "named": true
+        },
+        {
+          "type": "reptn",
+          "named": true
+        },
+        {
+          "type": "string_literal",
+          "named": true
+        },
+        {
+          "type": "symbol",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "register_definition",
@@ -3638,7 +3880,15 @@
     "named": false
   },
   {
+    "type": "<",
+    "named": false
+  },
+  {
     "type": "=",
+    "named": false
+  },
+  {
+    "type": ">",
     "named": false
   },
   {
