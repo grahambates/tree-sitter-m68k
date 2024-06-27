@@ -108,6 +108,10 @@ Macro symbols in labels
 l\@:
 CFX_\1FILL:
 Color\<REPTN>:
+\1foo:
+foo\1:
+foo\1bar:
+foo\1bar\2:
 ---
 (source_file
   (label (macro_arg))
@@ -116,7 +120,16 @@ Color\<REPTN>:
   (label
     (interpolated (macro_arg)))
   (label
-    (interpolated (macro_arg))))
+    (interpolated (macro_arg)))
+  (label
+    (interpolated (macro_arg)))
+  (label
+    (interpolated (macro_arg)))
+  (label
+    (interpolated (macro_arg)))
+  (label
+    (interpolated (macro_arg) (macro_arg)))
+)
 
 ============================================
 Macro symbols in mnemonic

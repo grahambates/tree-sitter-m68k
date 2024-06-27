@@ -637,7 +637,8 @@ module.exports = grammar({
         $._block
       ),
 
-    _standalone_label: ($) => seq($._label, optional($.comment)),
+    _standalone_label: ($) => seq(
+      choice($._label, alias($._name, $.label)), optional($.comment)),
 
     _standalone_comment: ($) => prec(-1, seq(optional($._ws), $.comment)),
 
@@ -685,7 +686,10 @@ module.exports = grammar({
     _name: ($) => field("name", $._identifier),
 
     _label_definition: ($) =>
-      seq(choice($._label_colon, $._name), optional($._ws)),
+      choice(
+        seq($._label_colon, optional($._ws)),
+        seq($._name, $._ws),
+      ),
 
     // colon required with leading whitespace
     _label_colon: ($) => seq(optional($._ws), $._name, ":"),
@@ -1120,7 +1124,7 @@ module.exports = grammar({
       prec(
         PREC.definition,
         seq(
-          $._label_definition,
+          choice($._label_definition, $._name),
           choice(
             seq(
               "=",
@@ -1437,16 +1441,19 @@ module.exports = grammar({
         /\\<[^>]+>/
       ),
 
+    // Symbol containing one or more macro args
+    // e.g. foo\1bar
     interpolated: ($) =>
       prec.right(
         1,
         seq(
-          choice(
-            seq($.macro_arg, $._symbol_chars),
-            seq(optional("."), $._symbol_chars, $.macro_arg),
-            seq(".", $.macro_arg)
+          optional("."),
+          optional($._symbol_chars),
+          repeat1(
+            prec.right(-1,
+              seq($.macro_arg, optional($._symbol_chars))
+            ),
           ),
-          repeat(choice($.macro_arg, $._symbol_chars)),
           optional("$")
         )
       ),

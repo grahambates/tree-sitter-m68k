@@ -22,7 +22,7 @@
     "nan": "^2.15.0"
   },
   "devDependencies": {
-    "tree-sitter-cli": "^0.20.6"
+    "tree-sitter-cli": "^0.20.8"
   },
   "repository": "https://github.com/grahambates/tree-sitter-m68k",
   "tree-sitter": [
