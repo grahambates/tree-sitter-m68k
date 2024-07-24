@@ -119,6 +119,25 @@ Instructions
 )
 
 ============================================
+Label scope
+============================================
+ move global_label\.local_label,d0
+ move global_label\\.local_label,d0
+---
+    (source_file
+      (instruction
+        (instruction_mnemonic)
+        (operand_list
+          (symbol)
+          (data_register)))
+      (instruction
+        (instruction_mnemonic)
+        (operand_list
+          (symbol)
+          (data_register)))
+    )
+
+============================================
 Macro calls
 ============================================
   MyMacro

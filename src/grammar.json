@@ -7154,7 +7154,7 @@
     },
     "_symbol_chars": {
       "type": "PATTERN",
-      "value": "[a-zA-Z0-9_%]+"
+      "value": "([a-zA-Z0-9_%]|(\\\\?\\\\\\.))+"
     },
     "_sep": {
       "type": "PATTERN",
