@@ -251,6 +251,7 @@ const instructions = [
   "intouch",
   "jmp",
   "jsr",
+  "jra",
   "linea",
   "line_a",
   "linef",
