@@ -291,6 +291,7 @@ const instructions = [
   "jble",
   "jbra",
   "jbsr",
+  "jra",
   "pmovefd",
   "mov3q",
   "movclr",
@@ -703,9 +704,9 @@ module.exports = grammar({
 
     comment: ($) => choice($._comment_star, $._comment_semi, $._comment_pipe, $._positional_comment),
 
-    _comment_semi: () => token(prec(10, /;[^\n\r]*/)),
-    _comment_pipe: () => token(prec(10, /\|[^\n\r]*/)),
-    _comment_star: () => token(prec(10, /\*[^\n\r]*/)),
+    _comment_semi: () => token(prec(1, /;[^\n\r]*/)),
+    _comment_pipe: () => token(prec(1, /\|[^\n\r]*/)),
+    _comment_star: () => token(prec(1, /\*[^\n\r]*/)),
     _positional_comment: () => token(prec(-1, /[^\n\r]+/)),
 
     _end_line: ($) =>
