@@ -9,7 +9,7 @@ const binaryOperators = [
   choice("<", ">", ">=", "<="),
   choice("+", "-"),
   choice("*", "/", "%", "//"),
-  choice("|", "!"),
+  "!",
   choice("^", "~"),
   "&",
   choice("<<", ">>"),
@@ -701,18 +701,19 @@ module.exports = grammar({
     // Comments:
     //----------------------------------------------------------------------
 
-    comment: ($) => choice($._comment_star, $._comment_semi),
-    _comment_semi: () => /;[^\n\r]*/,
-    _comment_star: () => /\*[^\n\r]*/,
+    comment: ($) => choice($._comment_star, $._comment_semi, $._comment_pipe, $._positional_comment),
+
+    _comment_semi: () => token(prec(1, /;[^\n\r]*/)),
+    _comment_pipe: () => token(prec(1, /\|[^\n\r]*/)),
+    _comment_star: () => token(prec(1, /\*[^\n\r]*/)),
+    _positional_comment: () => token(prec(-1, /[^\n\r]+/)),
 
     _end_line: ($) =>
       choice(
-        seq(optional($._ws), alias($._comment_semi, $.comment)),
-        // Start comment must have whitespace to avoid conflict with multiplication operator
-        // TODO: would be better if whitepace didn't form part of comment pattern
-        // This would be handled by positional comment if I could get precedence right
-        alias(/\s+\*.+/, $.comment),
-        seq($._ws, alias(/[^\r\n]+/, $.comment)) // Positional comment - any chars allowed after statement
+        alias($._comment_semi, $.comment),
+        alias($._comment_pipe, $.comment),
+        seq(optional($._ws), alias($._comment_star, $.comment)),
+        seq($._ws, alias($._positional_comment, $.comment))
       ),
 
     //----------------------------------------------------------------------
@@ -1361,7 +1362,7 @@ module.exports = grammar({
             i,
             seq(
               field("left", $._expression),
-              field("operator", alias(operator, $.operator)),
+              field("operator", alias(token(seq(optional(/[ \t]+/), operator, optional(/[ \t]+/))), $.operator)),
               field("right", $._expression)
             )
           )
@@ -1426,7 +1427,7 @@ module.exports = grammar({
 
     macro_arg: () =>
       choice(
-        /\\[0-9]/,
+        /[0-9]/,
         "\\@",
         "\\@!",
         "\\@?",
@@ -1501,5 +1502,5 @@ function caseInsensitive(keyword) {
 }
 
 function mnemonicChoice(options) {
-  return choice(...options.map(caseInsensitive));
+  return caseInsensitive(options.join("|"));
 }
